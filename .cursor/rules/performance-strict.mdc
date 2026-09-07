@@ -1,0 +1,8 @@
+---
+globs: "layout/theme.liquid, assets/**/*.js"
+alwaysApply: false
+---
+# Performance Optimization Rules
+- Ensure all new scripts use `defer` or `async`.
+- Do not introduce any new heavy third-party libraries.
+- When cleaning up dead code, ensure no dependent native functions are broken.

@@ -1,1 +1,226 @@
-{"sections":{"main":{"type":"main-product","blocks":{"bdb695a4-fed2-4968-a0fe-298d16425eaa":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/preview_badge\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","disabled":true,"settings":{}},"price":{"type":"price","settings":{}},"14f13698-9e33-4129-a028-7d95b053f145":{"type":"separator","settings":{}},"d7bbd334-74e7-44fa-b4c8-6895527b6dc9":{"type":"description","disabled":true,"settings":{"is_tab":false}},"variant_picker":{"type":"variant_picker","settings":{"size_chart":"sizing-chart","variant_labels":true,"picker_type":"button","color_swatches":true}},"buy_buttons":{"type":"buy_buttons","settings":{"show_dynamic_checkout":false,"surface_pickup_enable":false}},"tab_FkPt9g":{"type":"tab","settings":{"title":"","content":"<p>Use collapsible tabs for more detailed information that will help customers make a purchasing decision.<\/p><p>Ex: Shipping and return policies, size guides, and other common questions.<\/p>","page":""}},"1b05b6ef-6677-4952-b424-7604b4b66db6":{"type":"sales_point","settings":{"icon":"checkmark","text":"Estimated Delivery Time for Dresses READY TO SHIP is 2-10 business days"}},"sales_point3":{"type":"sales_point","settings":{"icon":"checkmark","text":"Estimated Delivery Time For \"Pre-Order\" Dresses is around 8-12 weeks."}},"sales_point":{"type":"sales_point","settings":{"icon":"globe","text":"Worldwide Priority Shipping"}},"sales_point4":{"type":"sales_point","settings":{"icon":"lock","text":"Secure payments"}},"inventory_status":{"type":"inventory_status","disabled":true,"settings":{"inventory_threshold":10,"inventory_transfers_enable":true}},"26571ae3-d209-4792-8251-a4191bf78456":{"type":"quantity_selector","disabled":true,"settings":{}},"5b639aec-9c89-4794-bb34-c84087273333":{"type":"share","settings":{}}},"block_order":["bdb695a4-fed2-4968-a0fe-298d16425eaa","price","14f13698-9e33-4129-a028-7d95b053f145","d7bbd334-74e7-44fa-b4c8-6895527b6dc9","variant_picker","buy_buttons","tab_FkPt9g","1b05b6ef-6677-4952-b424-7604b4b66db6","sales_point3","sales_point","sales_point4","inventory_status","26571ae3-d209-4792-8251-a4191bf78456","5b639aec-9c89-4794-bb34-c84087273333"],"settings":{"sku_enable":true,"image_position":"left","image_container_size":"medium","product_image_size":"portrait","product_zoom_enable":true,"thumbnail_position":"beside","thumbnail_arrows":false,"mobile_layout":"partial","enable_video_looping":true,"product_video_style":"muted"}},"sub":{"type":"product-full-width","blocks":{"description":{"type":"description","settings":{"is_tab":true}},"tab":{"type":"tab","settings":{"title":"Shipping information","content":"","page":"girls-dresses-shipping"}},"contact":{"type":"contact","settings":{"title":"Ask a question","phone":false}},"4953ea02-521d-465b-910a-b6c70cc8ef52":{"type":"tab","disabled":true,"settings":{"title":"Reviews","content":"","page":"reviews"}},"7bd68442-9981-484d-94d5-6abf27a00d55":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","disabled":true,"settings":{}},"385e79f4-35ee-49a7-afa6-59a99b5862d9":{"type":"custom","disabled":true,"settings":{"code":"{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}"}},"8834947e-1ec2-4278-a58a-93784c40ae62":{"type":"reviewstab","settings":{"title":"Customer Reviews","content":"<p>Use collapsible tabs for more detailed information that will help customers make a purchasing decision.<\/p><p>Ex: Shipping and return policies, size guides, and other common questions.<\/p>","page":""}}},"block_order":["description","tab","contact","4953ea02-521d-465b-910a-b6c70cc8ef52","7bd68442-9981-484d-94d5-6abf27a00d55","385e79f4-35ee-49a7-afa6-59a99b5862d9","8834947e-1ec2-4278-a58a-93784c40ae62"],"settings":{"max_width":false}},"recommendations":{"type":"product-recommendations","settings":{"product_recommendations_heading":"You May Also Like"}},"more-products-vendor":{"type":"more-products-vendor","disabled":true,"settings":{}},"more-products-collection":{"type":"more-products-collection","disabled":true,"settings":{}},"recently-viewed":{"type":"recently-viewed","settings":{}},"collection-return":{"type":"collection-return","disabled":true,"settings":{"color_scheme":"3"}}},"order":["main","sub","recommendations","more-products-vendor","more-products-collection","recently-viewed","collection-return"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "14f13698-9e33-4129-a028-7d95b053f145": {
+          "type": "separator",
+          "settings": {}
+        },
+        "d7bbd334-74e7-44fa-b4c8-6895527b6dc9": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+            "is_tab": false
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_chart": "sizing-chart",
+            "variant_labels": true,
+            "picker_type": "button",
+            "color_swatches": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "surface_pickup_enable": false
+          }
+        },
+        "tab_FkPt9g": {
+          "type": "tab",
+          "settings": {
+            "title": "",
+            "content": "<p>Use collapsible tabs for more detailed information that will help customers make a purchasing decision.</p><p>Ex: Shipping and return policies, size guides, and other common questions.</p>",
+            "page": ""
+          }
+        },
+        "1b05b6ef-6677-4952-b424-7604b4b66db6": {
+          "type": "sales_point",
+          "settings": {
+            "icon": "checkmark",
+            "text": "Estimated Delivery Time for Dresses READY TO SHIP is 2-10 business days"
+          }
+        },
+        "sales_point3": {
+          "type": "sales_point",
+          "settings": {
+            "icon": "checkmark",
+            "text": "Estimated Delivery Time For \"Pre-Order\" Dresses is around 8-12 weeks."
+          }
+        },
+        "sales_point": {
+          "type": "sales_point",
+          "settings": {
+            "icon": "globe",
+            "text": "Worldwide Priority Shipping"
+          }
+        },
+        "sales_point4": {
+          "type": "sales_point",
+          "settings": {
+            "icon": "lock",
+            "text": "Secure payments"
+          }
+        },
+        "inventory_status": {
+          "type": "inventory_status",
+          "disabled": true,
+          "settings": {
+            "inventory_threshold": 10,
+            "inventory_transfers_enable": true
+          }
+        },
+        "26571ae3-d209-4792-8251-a4191bf78456": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {}
+        },
+        "5b639aec-9c89-4794-bb34-c84087273333": {
+          "type": "share",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "price",
+        "14f13698-9e33-4129-a028-7d95b053f145",
+        "d7bbd334-74e7-44fa-b4c8-6895527b6dc9",
+        "variant_picker",
+        "buy_buttons",
+        "tab_FkPt9g",
+        "1b05b6ef-6677-4952-b424-7604b4b66db6",
+        "sales_point3",
+        "sales_point",
+        "sales_point4",
+        "inventory_status",
+        "26571ae3-d209-4792-8251-a4191bf78456",
+        "5b639aec-9c89-4794-bb34-c84087273333"
+      ],
+      "settings": {
+        "sku_enable": true,
+        "image_position": "left",
+        "image_container_size": "medium",
+        "product_image_size": "portrait",
+        "product_zoom_enable": true,
+        "thumbnail_position": "beside",
+        "thumbnail_arrows": false,
+        "mobile_layout": "partial",
+        "enable_video_looping": true,
+        "product_video_style": "muted"
+      }
+    },
+    "sub": {
+      "type": "product-full-width",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "is_tab": true
+          }
+        },
+        "tab": {
+          "type": "tab",
+          "settings": {
+            "title": "Shipping information",
+            "content": "",
+            "page": "girls-dresses-shipping"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "title": "Ask a question",
+            "phone": false
+          }
+        },
+        "4953ea02-521d-465b-910a-b6c70cc8ef52": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "title": "Reviews",
+            "content": "",
+            "page": "reviews"
+          }
+        },
+        "385e79f4-35ee-49a7-afa6-59a99b5862d9": {
+          "type": "custom",
+          "disabled": true,
+          "settings": {
+            "code": "{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}"
+          }
+        },
+        "8834947e-1ec2-4278-a58a-93784c40ae62": {
+          "type": "reviewstab",
+          "settings": {
+            "title": "Customer Reviews",
+            "content": "<p>Use collapsible tabs for more detailed information that will help customers make a purchasing decision.</p><p>Ex: Shipping and return policies, size guides, and other common questions.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "description",
+        "tab",
+        "contact",
+        "4953ea02-521d-465b-910a-b6c70cc8ef52",
+        "385e79f4-35ee-49a7-afa6-59a99b5862d9",
+        "8834947e-1ec2-4278-a58a-93784c40ae62"
+      ],
+      "settings": {
+        "max_width": false
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "product_recommendations_heading": "You May Also Like"
+      }
+    },
+    "more-products-vendor": {
+      "type": "more-products-vendor",
+      "disabled": true,
+      "settings": {}
+    },
+    "more-products-collection": {
+      "type": "more-products-collection",
+      "disabled": true,
+      "settings": {}
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "settings": {}
+    },
+    "collection-return": {
+      "type": "collection-return",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "3"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "sub",
+    "recommendations",
+    "more-products-vendor",
+    "more-products-collection",
+    "recently-viewed",
+    "collection-return"
+  ]
+}

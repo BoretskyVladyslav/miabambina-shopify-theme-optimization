@@ -1,1 +1,489 @@
-{"sections":{"16504743507c2d0b45":{"type":"hero-video","settings":{"full_width":true,"title":"<h1>Buy Special Occasion Dresses in the USA and Canada<\/h1>","title_size":72,"subheading":"Over 600 styles for all formal occasions","link_text":"Shop Now!","link":"shopify:\/\/collections\/girls-special-occasion-dresses","color_accent":"#ffffff","text_align":"vertical-center horizontal-center","video_url":"hhttps:\/\/youtu.be\/TNY63-gEGx8","overlay_opacity":0,"height":650,"height_mobile":300}},"1650474357e0b49234":{"type":"advanced-content","blocks":{"16504743574b87953b-1":{"type":"liquid","settings":{"code":"<h2>Girls's Formal Dresses & Ceremony Gowns<\/h2><p>For the most formal occasions, such as weddings, communions, christenings, proms, in addition to semi-formal wear for birthdays, family photoshoots, and other celebrations, Mia Bambina Boutique carries over 600 formal dresses for girls to choose from. <\/p>","width":"100%","alignment":"center"}}},"block_order":["16504743574b87953b-1"],"settings":{"full_width":false,"space_around":true}},"featured-collections":{"type":"featured-collections","blocks":{"featured-collections-0":{"type":"collection","settings":{"collection":"first-communion-dresses","title":"COMMUNION DRESSES"}},"featured-collections-1":{"type":"collection","settings":{"collection":"first-communion-veils","title":"COMMUNION VEILS"}},"featured-collections-2":{"type":"collection","settings":{"collection":"pageant-dresses","title":"PAGEANT DRESSES"}},"featured-collections-3":{"type":"collection","settings":{"collection":"flower-girl-dresses","title":"FLOWER GIRL DRESSES"}},"featured-collections-4":{"type":"collection","settings":{"collection":"bridesmaid-dresses","title":"BRIDESMAID DRESSES"}},"featured-collections-5":{"type":"collection","settings":{"collection":"ceremony-shoes","title":"CEREMONY SHOES"}}},"block_order":["featured-collections-0","featured-collections-1","featured-collections-2","featured-collections-3","featured-collections-4","featured-collections-5"],"settings":{"title":"Dress for Any Occasion!","divider":false}},"1648746050a4c713a6":{"type":"apps","blocks":{"4cf39c65-c97c-45bc-8b3a-f898cb719da1":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/featured_carousel\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"maxwidth":1300}},"judge_me_reviews_review_widget_homepage_mnGeCx":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget_homepage\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","disabled":true,"settings":{"product":"","review_data":"sample_data","max_width":1200}}},"block_order":["4cf39c65-c97c-45bc-8b3a-f898cb719da1","judge_me_reviews_review_widget_homepage_mnGeCx"],"settings":{"full_width":true,"space_around":true}},"slideshow-split":{"type":"slideshow-split","blocks":{"slideshow-split-0":{"type":"slide","settings":{"top_subheading":"Premium","title":"One-of-a-Kind Dresses","title_size":45,"subheading":"For Little Girls & Teens","link":"","link_text":"Shop Now!","link_2":"","link_text_2":"","text_position":"left","image":"shopify:\/\/shop_images\/flower-girl-dresses-lace-neckline.jpg","indent_image":false,"focal_point":"center center","color_scheme":"none"}},"slideshow-split-1":{"type":"slide","settings":{"top_subheading":"Girls Dresses","title":"For Celebration","title_size":40,"subheading":"Prom, Birthday, Special Event","link":"","link_text":"Choose Yours!","link_2":"","link_text_2":"","text_position":"right","image":"shopify:\/\/shop_images\/girl.jpg","indent_image":false,"focal_point":"center center","color_scheme":"none"}}},"block_order":["slideshow-split-0","slideshow-split-1"],"disabled":true,"settings":{"full_width":false,"height":450,"height_mobile":450,"style":"arrows","autoplay":true,"autoplay_speed":7}},"promo-grid":{"type":"promo-grid","blocks":{"promo-grid-1":{"type":"sale_collection","settings":{"sale_collection":"liquidation-sale-dresses","top_text":"Up to","middle_text":"60% off","bottom_text":"Select products","width":"50","color_scheme":"1"}},"promo-grid-2":{"type":"sale_collection","settings":{"sale_collection":"bat-mitzvah-dresses","top_text":"Just Arrived","middle_text":"NEW","bottom_text":"Dress Collection","width":"50","color_scheme":"1"}}},"block_order":["promo-grid-1","promo-grid-2"],"disabled":true,"settings":{"full_width":false,"gutter_size":20,"space_above":false,"space_below":false}},"featured-collection":{"type":"featured-collection","settings":{"title":"THE LATEST COMMUNION DRESS COLLECTION","home_featured_products":"first-communion-dresses","count":5,"mobile_scrollable":true,"view_all":true,"divider":false}},"featured-collection2":{"type":"featured-collection","settings":{"title":"FLOWER GIRL DRESSES","home_featured_products":"flower-girl-dresses","count":10,"mobile_scrollable":true,"view_all":true,"divider":false}},"1650916085642bd2f6":{"type":"featured-collection","settings":{"title":"READY TO SHIP LAST MINUTE OCCASION DRESSES","home_featured_products":"dresses-in-stock","count":10,"mobile_scrollable":true,"view_all":true,"divider":false}},"slideshow":{"type":"slideshow","blocks":{"slideshow-0":{"type":"hero","settings":{"top_subheading":"Up to 80% off sale","title":"<p>Celebrate in Style!<\/p>","title_size":40,"subheading":"2-5 day Delivery","link":"shopify:\/\/collections\/sale","link_text":"Shop the SALE","link_2":"","link_text_2":"","color_accent":"#b44faa","text_align":"vertical-center horizontal-center","image":"shopify:\/\/shop_images\/bg-slider2.jpg","overlay_opacity":0,"focal_point":"center center"}},"b3ddc5eb-06af-4431-8b74-0c3aabfd20ce":{"type":"hero","disabled":true,"settings":{"top_subheading":"","title":"<p>Overlaid Hero Slide<\/p>","title_size":40,"subheading":"And optional subtext","link":"","link_text":"Optional button","link_2":"","link_text_2":"","color_accent":"#b44faa","text_align":"vertical-bottom horizontal-center","image":"shopify:\/\/shop_images\/hero.jpg","overlay_opacity":0,"focal_point":"center center"}}},"block_order":["slideshow-0","b3ddc5eb-06af-4431-8b74-0c3aabfd20ce"],"settings":{"full_width":false,"desktop_size":0,"mobile_size":20,"style":"arrows","autoplay":false,"autoplay_speed":5}},"promo-grid2":{"type":"promo-grid","blocks":{"promo-grid-2-0":{"type":"banner","settings":{"heading":"Accessorize Your Dress!","text":"Pair your dress with a matching veil, headband and shoes!","link":"shopify:\/\/collections\/hair-accessories","label":"Shop now","color_scheme":"1"}}},"block_order":["promo-grid-2-0"],"settings":{"full_width":false,"gutter_size":20,"space_above":false,"space_below":false}},"blog-posts":{"type":"blog-posts","disabled":true,"settings":{"title":"From the journal","blog":"news","blog_show_tags":true,"blog_show_date":false,"blog_show_comments":false,"blog_show_author":false,"blog_image_size":"wide","divider":false}},"1648739991969659a8":{"type":"advanced-content","blocks":{"16487399911ecca94c-1":{"type":"liquid","settings":{"code":"<h2>Luxury &amp; Fashion Inspiration: Dresses for Young Girls<\/h2>\n<p>Every princess knows that our collection of stunning <a href=\"\/collections\/flower-girl-dresses\" title=\"Deluxe Flower Girl Dresses\">flower girl dresses<\/a> &amp; <a href=\"\/collections\/first-communion-dresses\" title=\"Communion Dresses\">communion dresses<\/a> follows the latest bridal fashion. What makes our boutique girls’ dresses so unique is the top-quality fabrics and beautiful craftsmanship used in their creation. Each garment has delicate embellishments, perfectly coordinated with accessories to complete the look. High-end design and quality shine through each girl’s dress and incorporate a variety of premium lace, satin, tulle, and silk organza. Our dressmakers bring <strong>more than ten years of experience<\/strong> from the wedding dress industry to make clothes that attract customers from all over the world, Canada and the U.S.<\/p>\n<p>Mia Bambina’s dresses are designed and crafted in fabrics which make every young girl feel special. The most skilled private garment ateliers in <strong>Europe <\/strong>made<strong> <\/strong>our beautiful and intricate styles, and all our pictures relate to the original designer’s images. Mia Bambina regularly adds new collections to their ranges to provide the best choices for your little girl’s special occasion dresses. Our dresses&nbsp;are also very comfortable to wear.<\/p>","width":"66%","alignment":"center"}},"cbc4657d-83ce-423c-a8a3-b40ac30df48e":{"type":"liquid","settings":{"code":"<p>Mia Bambina Boutique has the luxurious dress of your little girl’s dreams.&nbsp;We&nbsp; supply kids formal dresses and party dresses, so you have come to the right place whatever the special event. We can design and manufacture the perfect style of dress that you would like to see your little girl wear for her special occasion. At our clothing boutique, every little girl wears the princess dress that she has dreamt of. And each dress has a unique character and name. Exquisite design shines through each garment right through from luxurious children’s gowns to seasonal collections, which have perfectly coordinated items such as headbands, veils, or capes. Our online store offers formal wear for kids of all age groups.<\/p>","width":"33%","alignment":"center"}}},"block_order":["16487399911ecca94c-1","cbc4657d-83ce-423c-a8a3-b40ac30df48e"],"settings":{"full_width":false,"space_around":true}},"164874370181220299":{"type":"text-columns","blocks":{"16487437018f5c6977-0":{"type":"text_block","settings":{"enable_image":true,"image":"shopify:\/\/shop_images\/girls-dresses.jpg","image_width":650,"title":"Dress Boutique for Girls","text":"<p>Girls Dresses<\/p><p>Standout trends: elegant & luxurious children's dresses & gowns in various colours and designs. We carry unique designer dresses for every special occasion. Check them out and enjoy the great selection for little girls and toddlers. We offer individual attention and customization of any dress to your specific needs whether size or color. Custom dress orders, pre-orders available. <\/p><p>Happy shopping!<\/p>","button_label":"","button_link":""}},"16487437018f5c6977-1":{"type":"text_block","settings":{"enable_image":true,"image":"shopify:\/\/shop_images\/girl3.jpg","image_width":650,"title":"Designer Dresses with Lovely Details","text":"<p><em>Say \"Yes\" To The Dress!<\/em><\/p><p><em>\"Each Mia Bambina Boutique dress and accessory is an expression of love by our designers who understand every little girl’s dream of being a beautiful little princess. Fancy dresses are perfect for parties, photo sessions, dress-ups, weddings & special events.\"<\/em><\/p><p>She will be filled with confidence wearing any Mia Bambina Boutique special occasion dress.<\/p>","button_label":"","button_link":""}}},"block_order":["16487437018f5c6977-0","16487437018f5c6977-1"],"settings":{"title":"","align_text":"left","divider":false,"color_scheme":"none"}},"1648743707d5ac97be":{"type":"advanced-content","blocks":{"164874370763b31074-0":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/gem-girls-flower-girl-top-notch-dress-collection.jpg","link":"shopify:\/\/collections\/flower-girl-dresses","width":"33%","alignment":"bottom-middle"}},"164874370763b31074-1":{"type":"liquid","settings":{"code":"<h2 style=\"font-size:18px\">For Your Faboulous Wedding<\/h2>\n<h2>Top-Notch Flower Girls Dresses<\/h2>\n<p><strong><em>It’s all the little touches that make a huge difference.<\/em><\/strong><\/p>\n<p>Her beautiful Mia Bambina dress will add to the beauty and glory of the day. Whether elegant tiers of lace, embroidered tulle, or classic satin, your darling flower girl will cherish the designer dress and the memory of this special day.<\/p>\n<p>The unforgettable princess gowns feature floor-length skirts, high-low hems, ruffles and are designed by using many layers of tulle to give enchanting volume. Our luxurious gowns are perfect for her special day, from a formal ceremony to a wedding event.<\/p>\n<p>Available in size 3 years to size 16 years. You cannot go wrong with these gorgeous designs and top-notch European quality. <\/p>\n<p><em><b>Your dream of the perfect and luxurious girl’s dress comes true at Mia Bambina boutique!<\/b><\/em><\/p>\nIt’s all the little touches that make a huge difference. Her beautiful Mia Bambina dress will add to the beauty and glory of the day. Whether elegant tiers of lace, embroidered tulle, or classic satin, your darling flower girl will cherish the designer dress and the memory of this special...\n<p><\/p><a class=\"btn btn-primary\" style=\"margin-bottom:20px\" href=\"\/collections\/flower-girl-dresses\" title=\"\">Shop Now<\/a>","width":"66%","alignment":"center"}}},"block_order":["164874370763b31074-0","164874370763b31074-1"],"settings":{"full_width":false,"space_around":true}},"1648746042c475529b":{"type":"advanced-content","blocks":{"image_dkaapV":{"type":"image","settings":{"link":"","width":"100%","alignment":"center"}},"16487460422c7bfbac-0":{"type":"image","disabled":true,"settings":{"link":"","width":"50%","alignment":"center"}},"16487460422c7bfbac-1":{"type":"liquid","settings":{"code":"","width":"50%","alignment":"center"}}},"block_order":["image_dkaapV","16487460422c7bfbac-0","16487460422c7bfbac-1"],"disabled":true,"settings":{"full_width":false,"space_around":true}}},"order":["16504743507c2d0b45","1650474357e0b49234","featured-collections","1648746050a4c713a6","slideshow-split","promo-grid","featured-collection","featured-collection2","1650916085642bd2f6","slideshow","promo-grid2","blog-posts","1648739991969659a8","164874370181220299","1648743707d5ac97be","1648746042c475529b"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "16504743507c2d0b45": {
+      "type": "hero-video",
+      "settings": {
+        "full_width": true,
+        "title": "<h1>Buy Special Occasion Dresses in the USA and Canada</h1>",
+        "title_size": 72,
+        "subheading": "Over 600 styles for all formal occasions",
+        "link_text": "Shop Now!",
+        "link": "shopify://collections/girls-special-occasion-dresses",
+        "color_accent": "#ffffff",
+        "text_align": "vertical-center horizontal-center",
+        "video_url": "hhttps://youtu.be/TNY63-gEGx8",
+        "overlay_opacity": 0,
+        "height": 650,
+        "height_mobile": 300
+      }
+    },
+    "1650474357e0b49234": {
+      "type": "advanced-content",
+      "blocks": {
+        "16504743574b87953b-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "<h2>Girls's Formal Dresses & Ceremony Gowns</h2><p>For the most formal occasions, such as weddings, communions, christenings, proms, in addition to semi-formal wear for birthdays, family photoshoots, and other celebrations, Mia Bambina Boutique carries over 600 formal dresses for girls to choose from. </p>",
+            "width": "100%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "16504743574b87953b-1"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    },
+    "featured-collections": {
+      "type": "featured-collections",
+      "blocks": {
+        "featured-collections-0": {
+          "type": "collection",
+          "settings": {
+            "collection": "first-communion-dresses",
+            "title": "COMMUNION DRESSES"
+          }
+        },
+        "featured-collections-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "first-communion-veils",
+            "title": "COMMUNION VEILS"
+          }
+        },
+        "featured-collections-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "pageant-dresses",
+            "title": "PAGEANT DRESSES"
+          }
+        },
+        "featured-collections-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "flower-girl-dresses",
+            "title": "FLOWER GIRL DRESSES"
+          }
+        },
+        "featured-collections-4": {
+          "type": "collection",
+          "settings": {
+            "collection": "bridesmaid-dresses",
+            "title": "BRIDESMAID DRESSES"
+          }
+        },
+        "featured-collections-5": {
+          "type": "collection",
+          "settings": {
+            "collection": "ceremony-shoes",
+            "title": "CEREMONY SHOES"
+          }
+        }
+      },
+      "block_order": [
+        "featured-collections-0",
+        "featured-collections-1",
+        "featured-collections-2",
+        "featured-collections-3",
+        "featured-collections-4",
+        "featured-collections-5"
+      ],
+      "settings": {
+        "title": "Dress for Any Occasion!",
+        "divider": false
+      }
+    },
+    "1648746050a4c713a6": {
+      "type": "apps",
+      "settings": {
+        "full_width": true,
+        "space_around": true
+      }
+    },
+    "slideshow-split": {
+      "type": "slideshow-split",
+      "blocks": {
+        "slideshow-split-0": {
+          "type": "slide",
+          "settings": {
+            "top_subheading": "Premium",
+            "title": "One-of-a-Kind Dresses",
+            "title_size": 45,
+            "subheading": "For Little Girls & Teens",
+            "link": "",
+            "link_text": "Shop Now!",
+            "link_2": "",
+            "link_text_2": "",
+            "text_position": "left",
+            "image": "shopify://shop_images/flower-girl-dresses-lace-neckline.jpg",
+            "indent_image": false,
+            "focal_point": "center center",
+            "color_scheme": "none"
+          }
+        },
+        "slideshow-split-1": {
+          "type": "slide",
+          "settings": {
+            "top_subheading": "Girls Dresses",
+            "title": "For Celebration",
+            "title_size": 40,
+            "subheading": "Prom, Birthday, Special Event",
+            "link": "",
+            "link_text": "Choose Yours!",
+            "link_2": "",
+            "link_text_2": "",
+            "text_position": "right",
+            "image": "shopify://shop_images/girl.jpg",
+            "indent_image": false,
+            "focal_point": "center center",
+            "color_scheme": "none"
+          }
+        }
+      },
+      "block_order": [
+        "slideshow-split-0",
+        "slideshow-split-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "height": 450,
+        "height_mobile": 450,
+        "style": "arrows",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "promo-grid": {
+      "type": "promo-grid",
+      "blocks": {
+        "promo-grid-1": {
+          "type": "sale_collection",
+          "settings": {
+            "sale_collection": "liquidation-sale-dresses",
+            "top_text": "Up to",
+            "middle_text": "60% off",
+            "bottom_text": "Select products",
+            "width": "50",
+            "color_scheme": "1"
+          }
+        },
+        "promo-grid-2": {
+          "type": "sale_collection",
+          "settings": {
+            "sale_collection": "bat-mitzvah-dresses",
+            "top_text": "Just Arrived",
+            "middle_text": "NEW",
+            "bottom_text": "Dress Collection",
+            "width": "50",
+            "color_scheme": "1"
+          }
+        }
+      },
+      "block_order": [
+        "promo-grid-1",
+        "promo-grid-2"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "gutter_size": 20,
+        "space_above": false,
+        "space_below": false
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "THE LATEST COMMUNION DRESS COLLECTION",
+        "home_featured_products": "first-communion-dresses",
+        "count": 5,
+        "mobile_scrollable": true,
+        "view_all": true,
+        "divider": false
+      }
+    },
+    "featured-collection2": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "FLOWER GIRL DRESSES",
+        "home_featured_products": "flower-girl-dresses",
+        "count": 10,
+        "mobile_scrollable": true,
+        "view_all": true,
+        "divider": false
+      }
+    },
+    "1650916085642bd2f6": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "READY TO SHIP LAST MINUTE OCCASION DRESSES",
+        "home_featured_products": "dresses-in-stock",
+        "count": 10,
+        "mobile_scrollable": true,
+        "view_all": true,
+        "divider": false
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slideshow-0": {
+          "type": "hero",
+          "settings": {
+            "top_subheading": "Up to 80% off sale",
+            "title": "<p>Celebrate in Style!</p>",
+            "title_size": 40,
+            "subheading": "2-5 day Delivery",
+            "link": "shopify://collections/sale",
+            "link_text": "Shop the SALE",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "#b44faa",
+            "text_align": "vertical-center horizontal-center",
+            "image": "shopify://shop_images/bg-slider2.jpg",
+            "overlay_opacity": 0,
+            "focal_point": "center center"
+          }
+        },
+        "b3ddc5eb-06af-4431-8b74-0c3aabfd20ce": {
+          "type": "hero",
+          "disabled": true,
+          "settings": {
+            "top_subheading": "",
+            "title": "<p>Overlaid Hero Slide</p>",
+            "title_size": 40,
+            "subheading": "And optional subtext",
+            "link": "",
+            "link_text": "Optional button",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "#b44faa",
+            "text_align": "vertical-bottom horizontal-center",
+            "image": "shopify://shop_images/hero.jpg",
+            "overlay_opacity": 0,
+            "focal_point": "center center"
+          }
+        }
+      },
+      "block_order": [
+        "slideshow-0",
+        "b3ddc5eb-06af-4431-8b74-0c3aabfd20ce"
+      ],
+      "settings": {
+        "full_width": false,
+        "desktop_size": 0,
+        "mobile_size": 20,
+        "style": "arrows",
+        "autoplay": false,
+        "autoplay_speed": 5
+      }
+    },
+    "promo-grid2": {
+      "type": "promo-grid",
+      "blocks": {
+        "promo-grid-2-0": {
+          "type": "banner",
+          "settings": {
+            "heading": "Accessorize Your Dress!",
+            "text": "Pair your dress with a matching veil, headband and shoes!",
+            "link": "shopify://collections/hair-accessories",
+            "label": "Shop now",
+            "color_scheme": "1"
+          }
+        }
+      },
+      "block_order": [
+        "promo-grid-2-0"
+      ],
+      "settings": {
+        "full_width": false,
+        "gutter_size": 20,
+        "space_above": false,
+        "space_below": false
+      }
+    },
+    "blog-posts": {
+      "type": "blog-posts",
+      "disabled": true,
+      "settings": {
+        "title": "From the journal",
+        "blog": "news",
+        "blog_show_tags": true,
+        "blog_show_date": false,
+        "blog_show_comments": false,
+        "blog_show_author": false,
+        "blog_image_size": "wide",
+        "divider": false
+      }
+    },
+    "1648739991969659a8": {
+      "type": "advanced-content",
+      "blocks": {
+        "16487399911ecca94c-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "<h2>Luxury &amp; Fashion Inspiration: Dresses for Young Girls</h2>\n<p>Every princess knows that our collection of stunning <a href=\"/collections/flower-girl-dresses\" title=\"Deluxe Flower Girl Dresses\">flower girl dresses</a> &amp; <a href=\"/collections/first-communion-dresses\" title=\"Communion Dresses\">communion dresses</a> follows the latest bridal fashion. What makes our boutique girls’ dresses so unique is the top-quality fabrics and beautiful craftsmanship used in their creation. Each garment has delicate embellishments, perfectly coordinated with accessories to complete the look. High-end design and quality shine through each girl’s dress and incorporate a variety of premium lace, satin, tulle, and silk organza. Our dressmakers bring <strong>more than ten years of experience</strong> from the wedding dress industry to make clothes that attract customers from all over the world, Canada and the U.S.</p>\n<p>Mia Bambina’s dresses are designed and crafted in fabrics which make every young girl feel special. The most skilled private garment ateliers in <strong>Europe </strong>made<strong> </strong>our beautiful and intricate styles, and all our pictures relate to the original designer’s images. Mia Bambina regularly adds new collections to their ranges to provide the best choices for your little girl’s special occasion dresses. Our dresses&nbsp;are also very comfortable to wear.</p>",
+            "width": "66%",
+            "alignment": "center"
+          }
+        },
+        "cbc4657d-83ce-423c-a8a3-b40ac30df48e": {
+          "type": "liquid",
+          "settings": {
+            "code": "<p>Mia Bambina Boutique has the luxurious dress of your little girl’s dreams.&nbsp;We&nbsp; supply kids formal dresses and party dresses, so you have come to the right place whatever the special event. We can design and manufacture the perfect style of dress that you would like to see your little girl wear for her special occasion. At our clothing boutique, every little girl wears the princess dress that she has dreamt of. And each dress has a unique character and name. Exquisite design shines through each garment right through from luxurious children’s gowns to seasonal collections, which have perfectly coordinated items such as headbands, veils, or capes. Our online store offers formal wear for kids of all age groups.</p>",
+            "width": "33%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "16487399911ecca94c-1",
+        "cbc4657d-83ce-423c-a8a3-b40ac30df48e"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    },
+    "164874370181220299": {
+      "type": "text-columns",
+      "blocks": {
+        "16487437018f5c6977-0": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/girls-dresses.jpg",
+            "image_width": 650,
+            "title": "Dress Boutique for Girls",
+            "text": "<p>Girls Dresses</p><p>Standout trends: elegant & luxurious children's dresses & gowns in various colours and designs. We carry unique designer dresses for every special occasion. Check them out and enjoy the great selection for little girls and toddlers. We offer individual attention and customization of any dress to your specific needs whether size or color. Custom dress orders, pre-orders available. </p><p>Happy shopping!</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "16487437018f5c6977-1": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/girl3.jpg",
+            "image_width": 650,
+            "title": "Designer Dresses with Lovely Details",
+            "text": "<p><em>Say \"Yes\" To The Dress!</em></p><p><em>\"Each Mia Bambina Boutique dress and accessory is an expression of love by our designers who understand every little girl’s dream of being a beautiful little princess. Fancy dresses are perfect for parties, photo sessions, dress-ups, weddings & special events.\"</em></p><p>She will be filled with confidence wearing any Mia Bambina Boutique special occasion dress.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "16487437018f5c6977-0",
+        "16487437018f5c6977-1"
+      ],
+      "settings": {
+        "title": "",
+        "align_text": "left",
+        "divider": false,
+        "color_scheme": "none"
+      }
+    },
+    "1648743707d5ac97be": {
+      "type": "advanced-content",
+      "blocks": {
+        "164874370763b31074-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gem-girls-flower-girl-top-notch-dress-collection.jpg",
+            "link": "shopify://collections/flower-girl-dresses",
+            "width": "33%",
+            "alignment": "bottom-middle"
+          }
+        },
+        "164874370763b31074-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "<h2 style=\"font-size:18px\">For Your Faboulous Wedding</h2>\n<h2>Top-Notch Flower Girls Dresses</h2>\n<p><strong><em>It’s all the little touches that make a huge difference.</em></strong></p>\n<p>Her beautiful Mia Bambina dress will add to the beauty and glory of the day. Whether elegant tiers of lace, embroidered tulle, or classic satin, your darling flower girl will cherish the designer dress and the memory of this special day.</p>\n<p>The unforgettable princess gowns feature floor-length skirts, high-low hems, ruffles and are designed by using many layers of tulle to give enchanting volume. Our luxurious gowns are perfect for her special day, from a formal ceremony to a wedding event.</p>\n<p>Available in size 3 years to size 16 years. You cannot go wrong with these gorgeous designs and top-notch European quality. </p>\n<p><em><b>Your dream of the perfect and luxurious girl’s dress comes true at Mia Bambina boutique!</b></em></p>\nIt’s all the little touches that make a huge difference. Her beautiful Mia Bambina dress will add to the beauty and glory of the day. Whether elegant tiers of lace, embroidered tulle, or classic satin, your darling flower girl will cherish the designer dress and the memory of this special...\n<p></p><a class=\"btn btn-primary\" style=\"margin-bottom:20px\" href=\"/collections/flower-girl-dresses\" title=\"\">Shop Now</a>",
+            "width": "66%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "164874370763b31074-0",
+        "164874370763b31074-1"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    },
+    "1648746042c475529b": {
+      "type": "advanced-content",
+      "blocks": {
+        "image_dkaapV": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "width": "100%",
+            "alignment": "center"
+          }
+        },
+        "16487460422c7bfbac-0": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "link": "",
+            "width": "50%",
+            "alignment": "center"
+          }
+        },
+        "16487460422c7bfbac-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "",
+            "width": "50%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "image_dkaapV",
+        "16487460422c7bfbac-0",
+        "16487460422c7bfbac-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    }
+  },
+  "order": [
+    "16504743507c2d0b45",
+    "1650474357e0b49234",
+    "featured-collections",
+    "1648746050a4c713a6",
+    "slideshow-split",
+    "promo-grid",
+    "featured-collection",
+    "featured-collection2",
+    "1650916085642bd2f6",
+    "slideshow",
+    "promo-grid2",
+    "blog-posts",
+    "1648739991969659a8",
+    "164874370181220299",
+    "1648743707d5ac97be",
+    "1648746042c475529b"
+  ]
+}

@@ -1,0 +1,11 @@
+---
+description: "Strict rules for modifying the Shopify Expanse theme architecture and UI"
+alwaysApply: true
+---
+# Shopify Architecture & UI Constraints
+- NEVER modify global CSS/SCSS files that affect the entire site unless explicitly instructed.
+- Strictly use native Expanse theme UI components, utility classes, and CSS variables. Do not write custom CSS if a native utility exists.
+- Do not remove or alter existing liquid logic related to core cart functionality or integrations outside of the exact requested scope.
+- All new JavaScript must be vanilla JS (no jQuery) and must not block rendering.
+- MANDATORY GIT WORKFLOW: After completing any significant code modification, refactor, or optimization step, create a atomic git commit with a clear conventional commit message (e.g., `perf: ...`, `fix: ...`, `feat: ...`) and execute `git push origin main`.
+- Never leave large changes uncommitted or unpushed to the remote repository.
