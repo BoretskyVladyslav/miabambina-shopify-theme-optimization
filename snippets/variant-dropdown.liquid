@@ -1,0 +1,53 @@
+{%- liquid
+  assign is_size = false
+  assign size_trigger = 'products.general.size_trigger' | t | downcase
+  assign downcased_option = option.name | downcase
+
+  if downcased_option contains size_trigger
+    assign is_size = true
+  endif
+-%}
+
+{%- capture size_chart_title -%}
+  {{ 'products.general.size_chart' | t }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-size-chart" viewBox="0 0 64 64"><defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M22.39 33.53c-7.46 0-13.5-3.9-13.5-8.72s6-8.72 13.5-8.72 13.5 3.9 13.5 8.72a12 12 0 0 1-.22 1.73"/><ellipse cx="22.39" cy="24.81" rx="3.28" ry="2.12"/><path class="a" d="M8.89 24.81V38.5c0 7.9 6.4 9.41 14.3 9.41h31.92V33.53H22.39M46.78 33.53v7.44M38.65 33.53v7.44M30.52 33.53v7.44M22.39 33.53v7.44"/></svg>
+{%- endcapture -%}
+<div class="variant-wrapper variant-wrapper--dropdown js" data-type="dropdown">
+   {%- if is_size -%}<span class="variant__label-info" data-type="button">
+        {%- render
+          'tool-tip-trigger',
+          title: size_chart_title,
+          content: pages.sizing-chart.content,
+          context: 'size-chart'
+        -%}
+      </span>{%- endif -%} 
+  <label class="variant__label{% if option.name == 'Default' or option.name == 'Title' %} hidden-label{% endif %}{% unless variant_labels %} hidden-label{% endunless %}"
+    for="SingleOptionSelector-{{ section_id }}-{{ product.id }}-option-{{ forloop.index0 }}">
+   {{ option.name }}</label>
+  <div class="variant-input-wrap" data-index="option{{ forloop.index }}" data-handle="{{ option.name | handleize }}">
+    <select
+      form="{{ form_id }}"
+      data-variant-input
+      id="SingleOptionSelector-{{ section_id }}-{{ product.id }}-option-{{ forloop.index0 }}"
+      data-index="option{{ forloop.index }}">
+      {%- for value in option.values -%}
+        {%- liquid
+          assign variant_label_state = true
+          if product.options.size == 1
+            unless product.variants[forloop.index0].available
+              assign variant_label_state = false
+            endunless
+          endif
+        -%}
+        <option
+          value="{{ value | escape }}"
+          {% if option.selected_value == value %} selected="selected"{% endif %}
+          {% unless variant_label_state %} disabled="disabled"{% endunless %}
+          name="{{ option.name }}"
+          class="variant-input"
+          data-index="option{{ forloop.index }}">
+          {{ value }}
+        </option>
+      {%- endfor -%}
+    </select>
+  </div>
+</div>

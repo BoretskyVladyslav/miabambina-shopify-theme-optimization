@@ -1,0 +1,107 @@
+{%- form 'product', product, id: form_id, class: 'product-single__form' -%}
+
+  {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+    <div class="product__policies rte">
+      {%- if shop.taxes_included -%}
+        {{ 'products.product.include_taxes' | t }}
+      {%- endif -%}
+      {%- if shop.shipping_policy.body != blank -%}
+        {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- liquid
+    assign enable_dynamic_buttons = false
+    if show_dynamic_checkout and template != 'product.preorder'
+      assign enable_dynamic_buttons = true
+    endif
+  -%}
+<!--code-->
+ <p>You can leave any additional information about the order, for example, your daughter's measurements on the cart page.</p>
+                      <div class="product__quantity" style="width:30%;float:left;margin-bottom:30px;">
+                        <!--<label for="Quantity-{{ section_id }}-{{ product.id }}">{{ 'products.product.quantity' | t }}</label>-->
+                        <div class="js-qty__wrapper">
+                          <input type="text" id="Quantity-{{ section_id }}-{{ product.id }}"
+                            class="js-qty__num"
+                            value="1"
+                            min="1"
+                            aria-label="quantity"
+                            pattern="[0-9]*"
+                            form="{{ form_id }}"
+                            name="quantity">
+                          <button type="button"
+                            class="js-qty__adjust js-qty__adjust--minus"
+                            aria-label="{{ 'cart.general.reduce_quantity' | t }}">
+                              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 64 64"><path class="cls-1" d="M55 32H9"/></svg>
+                              <span class="icon__fallback-text" aria-hidden="true">&minus;</span>
+                          </button>
+                          <button type="button"
+                            class="js-qty__adjust js-qty__adjust--plus"
+                            aria-label="{{ 'cart.general.increase_quantity' | t }}">
+                              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 64 64"><path class="cls-1" d="M32 9v46m23-23H9"/></svg>
+                              <span class="icon__fallback-text" aria-hidden="true">+</span>
+                          </button>
+                        </div>
+                      </div>
+<!--end-->
+  {%- if enable_dynamic_buttons -%}
+    <div class="payment-buttons" style="width:70%; float:left;margin-bottom:30px">
+  {%- endif -%}
+
+    {%- liquid
+      assign default_text = 'products.product.add_to_cart' | t
+      assign button_text = 'products.product.add_to_cart' | t
+      if template == 'product.preorder'
+        assign default_text = 'products.product.preorder' | t
+        assign button_text = 'products.product.preorder' | t
+      endif
+      unless current_variant.available
+        assign button_text = 'products.product.sold_out' | t
+      endunless
+    -%}
+
+    <button
+      {% if product.empty? %}type="button"{% else %}type="submit"{% endif %}
+      name="add"
+      data-add-to-cart
+      class="btn btn--full add-to-cart{% if enable_dynamic_buttons and product.selling_plan_groups == empty %} btn--secondary{% endif %}"
+      {% unless current_variant.available %} disabled="disabled"{% endunless %} style="width:70%; float:left;margin-bottom:30px">
+      <span data-add-to-cart-text data-default-text="{{ default_text }}">
+        {{ button_text }}
+      </span>
+    </button>
+
+  {%- if enable_dynamic_buttons -%}
+    {{ form | payment_button }}
+    {%- endif -%}
+
+  {%- if enable_dynamic_buttons -%}
+    </div>
+  {%- endif -%} 
+  <div class="shopify-payment-terms product__policies">{{ form | payment_terms }}</div>
+  <select name="id" data-product-select class="product-single__variants no-js">
+    {%- for variant in product.variants -%}
+      {%- if variant.available -%}
+        <option {% if variant == product.selected_or_first_available_variant %}
+          selected="selected"{% endif %}
+          value="{{ variant.id }}">
+          {{ variant.title }} - {{ variant.price | money_with_currency }}
+        </option>
+      {%- else -%}
+        <option disabled="disabled">
+          {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+        </option>
+      {%- endif -%}
+    {%- endfor -%}
+  </select>
+
+  <textarea data-variant-json class="hide" aria-hidden="true" aria-label="Product JSON">
+    {{ product.variants | json }}
+  </textarea>
+  {%- if product.options.size > 1 -%}
+    <textarea data-current-variant-json class="hide" aria-hidden="true" aria-label="Variant JSON">
+      {{ current_variant | json }}
+    </textarea>
+  {%- endif -%}
+{%- endform -%}
