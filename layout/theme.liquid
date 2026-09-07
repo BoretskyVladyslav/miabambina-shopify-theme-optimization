@@ -113,7 +113,6 @@
  
   <script src="{{ 'vendor-scripts-v2.js' | asset_url | split: '?' | first }}" defer="defer"></script>
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
   {%- if request.page_type contains 'customers/' -%}
     <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
   {%- endif -%}
@@ -264,26 +263,5 @@
     render 'tool-tip'
   -%}
   <div id="ProductModals"></div>
-{% comment %}//alpha currency snippet start{% endcomment %}
- {% capture snippet_content %}
- {% include 'alphacurrencyconverter' %} 
-{% endcapture %} 
-{% unless snippet_check contains 'Liquid error' %}
- {{ snippet_content }}
- {% endunless %}
- {% comment %}//alpha currency snippet end{% endcomment %}
-  <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/59aef4524854b82732fee573/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
 </body>
 </html>
