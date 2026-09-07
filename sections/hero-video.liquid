@@ -55,24 +55,30 @@
     <div class="hero__media hero__media--{{ section.id }}">
       <div class="hero__media-container">
 
-        {%- if section.settings.video_url contains 'youtube.com/watch' -%}
-          {%- assign video_id = section.settings.video_url | split: 'v=' -%}
-          {%- assign video_id = video_id[1] | split: '&' | first -%}
-          <div
-            id="YouTubeVideo-{{ section.id }}"
-            class="video-div"
-            data-type="youtube"
-            data-video-id="{{ video_id }}"></div>
-        {%- endif -%}
+        {%- liquid
+          assign youtube_id = nil
+          if section.settings.video_url contains 'youtube.com/watch'
+            assign youtube_id = section.settings.video_url | split: 'v=' | last | split: '&' | first
+          elsif section.settings.video_url contains 'youtu.be/'
+            assign youtube_id = section.settings.video_url | split: '.be/' | last | split: '&' | first
+          endif
+        -%}
 
-        {%- if section.settings.video_url contains 'youtu.be/' -%}
-          {%- assign video_id = section.settings.video_url | split: '.be/' -%}
-          {%- assign video_id = video_id[1] | split: '&' | first -%}
+        {%- if youtube_id != blank -%}
+          <img
+            class="hero__image"
+            src="https://i.ytimg.com/vi/{{ youtube_id }}/hqdefault.jpg"
+            alt=""
+            width="1280"
+            height="720"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async">
           <div
             id="YouTubeVideo-{{ section.id }}"
             class="video-div"
             data-type="youtube"
-            data-video-id="{{ video_id }}"></div>
+            data-video-id="{{ youtube_id }}"></div>
         {%- endif -%}
 
         {%- if section.settings.video_url contains 'vimeo.com' -%}

@@ -554,6 +554,7 @@ lazySizesConfig.expFactor = 4;
     function createScriptTag(library, callback) {
       var tag = document.createElement('script');
       tag.src = library.src;
+      tag.async = true;
       tag.addEventListener('load', function() {
         library.status = status.loaded;
         callback();
@@ -6211,13 +6212,34 @@ lazySizesConfig.expFactor = 4;
       },
   
       initYoutubeVideo: function(videoId) {
-        this.videoObject = new theme.YouTube(
-          'YouTubeVideo-' + this.sectionId,
-          {
-            videoId: videoId,
-            videoParent: selectors.videoParent
+        if (this.youtubeDeferred) {
+          return;
+        }
+        this.youtubeDeferred = true;
+
+        var started = false;
+        var startPlayer = function() {
+          if (started) {
+            return;
           }
-        );
+          started = true;
+          this.videoObject = new theme.YouTube(
+            'YouTubeVideo-' + this.sectionId,
+            {
+              videoId: videoId,
+              videoParent: selectors.videoParent
+            }
+          );
+        }.bind(this);
+
+        window.addEventListener('load', startPlayer, { once: true });
+        window.addEventListener('touchstart', startPlayer, { once: true, passive: true });
+        window.addEventListener('click', startPlayer, { once: true });
+        window.addEventListener('keydown', startPlayer, { once: true });
+
+        if (document.readyState === 'complete') {
+          startPlayer();
+        }
       },
   
       initVimeoVideo: function(videoId) {

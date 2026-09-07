@@ -40,11 +40,14 @@
           {%- assign img_url = collection_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
           <img
             class="lazyload"
-            src=""
+            src="{{ collection_image | img_url: '400x' }}"
             data-src="{{ img_url }}"
             data-aspectratio="{{ collection_image.aspect_ratio }}"
             data-widths="[720, 900, 1080]"
             data-sizes="auto"
+            loading="lazy"
+            width="{{ collection_image.width | default: 400 }}"
+            height="{{ collection_image.height | default: 400 }}"
             alt="{{ collection_image.alt | escape }}">
 
           <noscript>
