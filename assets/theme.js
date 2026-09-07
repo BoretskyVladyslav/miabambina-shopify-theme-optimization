@@ -6218,13 +6218,22 @@ lazySizesConfig.expFactor = 4;
         this.youtubeDeferred = true;
 
         var started = false;
-        var startPlayer = function() {
+        var playerId = 'YouTubeVideo-' + this.sectionId;
+
+        this.startPlayer = function() {
           if (started) {
             return;
           }
           started = true;
+          this.removeYoutubeListeners();
+
+          var videoEl = document.getElementById(playerId);
+          if (!videoEl) {
+            return;
+          }
+
           this.videoObject = new theme.YouTube(
-            'YouTubeVideo-' + this.sectionId,
+            playerId,
             {
               videoId: videoId,
               videoParent: selectors.videoParent
@@ -6232,14 +6241,24 @@ lazySizesConfig.expFactor = 4;
           );
         }.bind(this);
 
-        window.addEventListener('load', startPlayer, { once: true });
-        window.addEventListener('touchstart', startPlayer, { once: true, passive: true });
-        window.addEventListener('click', startPlayer, { once: true });
-        window.addEventListener('keydown', startPlayer, { once: true });
+        window.addEventListener('load', this.startPlayer);
+        window.addEventListener('touchstart', this.startPlayer, { passive: true });
+        window.addEventListener('click', this.startPlayer);
+        window.addEventListener('keydown', this.startPlayer);
 
         if (document.readyState === 'complete') {
-          startPlayer();
+          this.startPlayer();
         }
+      },
+
+      removeYoutubeListeners: function() {
+        if (!this.startPlayer) {
+          return;
+        }
+        window.removeEventListener('load', this.startPlayer);
+        window.removeEventListener('touchstart', this.startPlayer);
+        window.removeEventListener('click', this.startPlayer);
+        window.removeEventListener('keydown', this.startPlayer);
       },
   
       initVimeoVideo: function(videoId) {
@@ -6275,6 +6294,7 @@ lazySizesConfig.expFactor = 4;
       },
   
       onUnload: function(evt) {
+        this.removeYoutubeListeners();
         var sectionId = evt.target.id.replace('shopify-section-', '');
         if (this.videoObject && typeof this.videoObject.destroy === 'function') {
           this.videoObject.destroy();

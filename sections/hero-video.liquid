@@ -58,9 +58,9 @@
         {%- liquid
           assign youtube_id = nil
           if section.settings.video_url contains 'youtube.com/watch'
-            assign youtube_id = section.settings.video_url | split: 'v=' | last | split: '&' | first
+            assign youtube_id = section.settings.video_url | split: 'v=' | last | split: '?' | first | split: '&' | first | split: '#' | first | slice: 0, 11
           elsif section.settings.video_url contains 'youtu.be/'
-            assign youtube_id = section.settings.video_url | split: '.be/' | last | split: '&' | first
+            assign youtube_id = section.settings.video_url | split: '.be/' | last | split: '?' | first | split: '&' | first | split: '#' | first | slice: 0, 11
           endif
         -%}
 

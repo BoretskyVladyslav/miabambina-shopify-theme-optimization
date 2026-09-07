@@ -15,7 +15,6 @@
   <link rel="dns-prefetch" href="https://maps.gstatic.com">
 <style>
 @import 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400&display=swap';
-     }
 </style>
   {%- if settings.favicon != blank -%}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
@@ -200,7 +199,7 @@
     {%- unless logo_url == blank -%}
       "image": "{{ logo_url | remove: "\" }}",
       "logo": "{{ logo_url | remove: "\" }}",
-    {%- else - -%}
+    {%- else -%}
       "image": "https:{{ 'logo.png' | asset_url }}",
       "logo": "https:{{ 'logo.png' | asset_url }}",
     {%- endunless -%}
