@@ -330,7 +330,14 @@ lazySizesConfig.expFactor = 4;
           break;
       }
   
-      return formatString.replace(placeholderRegex, value);
+      var formatted = formatString.replace(placeholderRegex, value);
+      var currencyCode = theme.settings && theme.settings.cartCurrency;
+
+      if (currencyCode && formatted.indexOf(currencyCode) === -1) {
+        formatted = formatted + ' ' + currencyCode;
+      }
+
+      return formatted;
     }
   
     function getBaseUnit(variant) {
@@ -7043,6 +7050,10 @@ lazySizesConfig.expFactor = 4;
         new theme.MobileNav({
           id: 'MobileNav',
           inHeader: true
+        });
+
+        document.querySelectorAll('#MobileNav [data-mobile-localization] [data-disclosure-locale], #MobileNav [data-mobile-localization] [data-disclosure-currency]').forEach(function(el) {
+          new theme.Disclosure(el);
         });
   
         if (theme.config.bpSmall) {
