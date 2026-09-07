@@ -1,4 +1,8 @@
-{%- assign formId = 'localization_form-' | append: location -%}
+{%- if form_id != blank -%}
+  {%- assign formId = form_id -%}
+{%- else -%}
+  {%- assign formId = 'localization_form-' | append: location -%}
+{%- endif -%}
 {%- assign formClass = 'multi-selectors multi-selectors--' | append: location -%}
 {%- form 'localization', id: formId, class: formClass, data-disclosure-form: '' -%}
   {%- if locale_selector -%}
@@ -76,4 +80,5 @@
       </div>
     </div>
   {%- endif -%}
+  <input type="hidden" name="return_to" value="{{ request.path }}{% if request.query_string != blank %}?{{ request.query_string }}{% endif %}">
 {%- endform -%}
