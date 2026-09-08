@@ -71,7 +71,13 @@
             assign yt_poster_sd = 'https://i.ytimg.com/vi/' | append: youtube_id | append: '/sddefault.jpg'
             assign yt_poster_max = 'https://i.ytimg.com/vi/' | append: youtube_id | append: '/maxresdefault.jpg'
           -%}
-          {{ yt_poster_sd | preload_tag: as: 'image', fetchpriority: 'high' }}
+          <link
+            rel="preload"
+            as="image"
+            href="{{ yt_poster_sd }}"
+            imagesrcset="{{ yt_poster_mq }} 320w, {{ yt_poster_hq }} 480w, {{ yt_poster_sd }} 640w, {{ yt_poster_max }} 1280w"
+            imagesizes="100vw"
+            fetchpriority="high">
           <img
             class="hero__image"
             src="{{ yt_poster_sd }}"

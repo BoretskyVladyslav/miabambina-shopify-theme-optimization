@@ -11,7 +11,15 @@
   <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
   <link rel="dns-prefetch" href="https://maps.googleapis.com">
   <link rel="dns-prefetch" href="https://maps.gstatic.com">
-  {%- if request.page_type == 'product' and product.featured_media -%}
+  {%- if request.page_type == 'index' -%}
+    <link
+      rel="preload"
+      as="image"
+      href="https://i.ytimg.com/vi/TNY63-gEGx8/sddefault.jpg"
+      imagesrcset="https://i.ytimg.com/vi/TNY63-gEGx8/mqdefault.jpg 320w, https://i.ytimg.com/vi/TNY63-gEGx8/hqdefault.jpg 480w, https://i.ytimg.com/vi/TNY63-gEGx8/sddefault.jpg 640w, https://i.ytimg.com/vi/TNY63-gEGx8/maxresdefault.jpg 1280w"
+      imagesizes="100vw"
+      fetchpriority="high">
+  {%- elsif request.page_type == 'product' and product.featured_media -%}
     {%- assign lcp_image = product.featured_media.preview_image -%}
     <link
       rel="preload"
