@@ -32,10 +32,13 @@
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
     ],
-    "brand": {{ product.vendor | json }},
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
     "sku": {{ current_variant.sku | json }},
     "name": {{ product.title | json }},
-    "description": {{ product.description | strip_html | json }},
+    "description": {{ product.description | strip_html | default: product.title | json }},
     "category": "",
     "url": "{{ shop.url }}{{ product.url }}",
     {%- if is_barcode_available and is_valid_gtin_length %}

@@ -109,43 +109,53 @@
  
   <script src="{{ 'vendor-scripts-v2.js' | asset_url | split: '?' | first }}" defer="defer"></script>
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'sprites-core-remap.js' | asset_url }}" data-sprite-url="{{ 'sprites-core.svg' | asset_url | split: '?' | first }}" defer="defer"></script>
   {%- if request.page_type contains 'customers/' -%}
     <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
   {%- endif -%}
-  {%- if template == 'product' -%}
+  {%- if request.page_type == 'product' -%}
+{%- liquid
+  assign schema_description = product.description | strip_html | strip
+  if schema_description == blank
+    assign schema_description = product.title
+  endif
+  if product.featured_image
+    assign schema_image = product.featured_image | img_url: 'master' | prepend: 'https:'
+  elsif product.images.first
+    assign schema_image = product.images.first | img_url: 'master' | prepend: 'https:'
+  else
+    assign schema_image = ''
+  endif
+-%}
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": {{ product.title | json }},
-    {%- if product.featured_image -%}
-    {%- assign image_size = product.featured_image.width | append: 'x' -%}
-    "image": "https:{{ product.featured_image.src | img_url: image_size }}",
-    {%- else -%}
-    "image": "https:{{ product.images[0].src | img_url }}",
-    {%- endif -%}
-    "description": {{ product.description | strip_html | json }},
-        "@type": "Brand",
-        "name": {{ product.vendor | json }}
-      },
-    "sku": "{{ product.selected_or_first_available_variant.sku }}",
-    "url": "{{ shop.secure_url }}{{ product.url }}",
+    "image": {{ schema_image | json }},
+    "description": {{ schema_description | json }},
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    "url": {{ shop.secure_url | append: product.url | json }},
     "itemCondition": "https://schema.org/NewCondition",
     "offers": [
       {%- for variant in product.variants -%}
         {
           "@type": "Offer",
-          "price": "{{ variant.price | money_without_currency | remove: "," }}",
-          "priceCurrency": "{{ shop.currency }}",
+          "price": {{ variant.price | money_without_currency | remove: "," | json }},
+          "priceCurrency": {{ cart.currency.iso_code | json }},
           "itemCondition": "https://schema.org/NewCondition",
-          "url": "{{ shop.secure_url }}{{ variant.url }}",
-          "sku": "{{ variant.sku }}",
-          "availability" : "https://schema.org/{%- if variant.available -%}InStock{%- else -%}OutOfStock{%- endif -%}",
-          "priceValidUntil": {{ "today" | date: '%s' | plus: 2592000 | date: "%Y-%m-%d" | json }}}
-        {%- if forloop.index < product.variants.size -%},{%- endif -%}
+          "url": {{ shop.secure_url | append: variant.url | json }},
+          "sku": {{ variant.sku | json }},
+          "availability": {% if variant.available %}"https://schema.org/InStock"{% else %}"https://schema.org/OutOfStock"{% endif %},
+          "priceValidUntil": {{ "now" | date: '%s' | plus: 2592000 | date: "%Y-%m-%d" | json }}
+        }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
     ]
-}
+  }
 </script>
 {%- elsif template == 'blog' -%}
 <script type="application/ld+json">
