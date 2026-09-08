@@ -18,6 +18,77 @@
       <a href="{{ product.url }}" class="cart__item-name">
         {{ product.product.title }}
       </a>
+      {%- liquid
+        assign is_rental = false
+        if product.properties['_is_rental'] == 'true'
+          assign is_rental = true
+        endif
+        unless is_rental
+          for option in product.options_with_values
+            assign rental_option_value = option.value | downcase
+            if rental_option_value contains 'rent'
+              assign is_rental = true
+            endif
+          endfor
+        endunless
+
+        assign rental_fee_display = product.properties['Rental Fee']
+        assign rental_deposit_display = product.properties['Refundable Security Deposit']
+        assign rental_terms_display = product.properties['Rental Terms']
+        if rental_terms_display == blank
+          assign rental_terms_display = 'cart.general.rental_terms' | t
+        endif
+
+        if is_rental
+          if rental_fee_display == blank or rental_deposit_display == blank
+            assign rental_fee_cents = product.original_price
+            if product.original_price >= 35000
+              if product.original_price < 45000
+                assign rental_fee_cents = 15000
+              elsif product.original_price < 55000
+                assign rental_fee_cents = 20000
+              elsif product.original_price < 70000
+                assign rental_fee_cents = 23000
+              elsif product.original_price < 85000
+                assign rental_fee_cents = 26000
+              else
+                assign rental_fee_cents = 28000
+              endif
+            endif
+            assign rental_deposit_cents = product.original_price | minus: rental_fee_cents
+            if rental_deposit_cents < 0
+              assign rental_deposit_cents = 0
+            endif
+            assign rental_iso = cart.currency.iso_code
+            if rental_fee_display == blank
+              assign rental_fee_display = rental_fee_cents | money
+              unless rental_fee_display contains rental_iso
+                assign rental_fee_display = rental_fee_display | append: ' ' | append: rental_iso
+              endunless
+            endif
+            if rental_deposit_display == blank
+              assign rental_deposit_display = rental_deposit_cents | money
+              unless rental_deposit_display contains rental_iso
+                assign rental_deposit_display = rental_deposit_display | append: ' ' | append: rental_iso
+              endunless
+            endif
+          endif
+          assign rental_total_display = product.original_price | money_with_currency
+        endif
+      -%}
+      {%- if is_rental -%}
+        <div class="cart__item--variants">
+          <div>
+            <span class="cart__discount cart__rental-badge">{{ 'cart.general.rental_badge' | t }}</span>
+          </div>
+          <div><span>{{ 'cart.general.rental_fee' | t }}:</span> {{ rental_fee_display }}</div>
+          <div><span>{{ 'cart.general.rental_deposit' | t }}:</span> {{ rental_deposit_display }}</div>
+          {%- if rental_terms_display != blank -%}
+            <div><span>{{ 'cart.general.rental_terms_label' | t }}:</span> {{ rental_terms_display }}</div>
+          {%- endif -%}
+          <div class="small">{{ 'cart.general.rental_total_includes_deposit' | t: total: rental_total_display }}</div>
+        </div>
+      {%- endif -%}
       {%- unless product.product.has_only_default_variant -%}
         <div class="cart__item--variants">
           {%- for option in product.options_with_values -%}
@@ -35,14 +106,17 @@
         {% for p in product.properties %}
           {%- assign first_character_in_key = p.first | truncate: 1, '' -%}
           {% unless p.last == blank or first_character_in_key == '_' %}
-            <div>
-              {{ p.first }}:
-              {% if p.last contains '/uploads/' %}
-                <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-              {% else %}
-                {{ p.last }}
-              {% endif %}
-            </div>
+            {%- if p.first == 'Rental Fee' or p.first == 'Refundable Security Deposit' or p.first == 'Rental Terms' -%}
+            {%- else -%}
+              <div>
+                {{ p.first }}:
+                {% if p.last contains '/uploads/' %}
+                  <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                {% else %}
+                  {{ p.last }}
+                {% endif %}
+              </div>
+            {%- endif -%}
           {% endunless %}
         {% endfor %}
       {% endif %}

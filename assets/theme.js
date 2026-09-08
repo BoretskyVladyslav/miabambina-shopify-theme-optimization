@@ -422,9 +422,35 @@ lazySizesConfig.expFactor = 4;
       return fallback != null ? fallback : variant.price;
     }
 
+    function getDepositCents(variant, variants) {
+      if (!variant || !isRentVariant(variant)) return 0;
+      var fee = Number(getDisplayCents(variant, variants));
+      var retail = Number(variant.price) || 0;
+      if (!isFinite(fee)) return 0;
+      var deposit = retail - fee;
+      return deposit > 0 ? deposit : 0;
+    }
+
+    function formatMoneyWithCode(cents, currencyCode) {
+      var money = '';
+      if (theme.Currency && typeof theme.Currency.formatMoney === 'function') {
+        money = String(theme.Currency.formatMoney(cents, theme.settings && theme.settings.moneyFormat));
+      } else {
+        money = String(cents);
+      }
+      money = money.replace(/<[^>]+>/g, '');
+      var code = currencyCode || (window.Shopify && Shopify.currency && Shopify.currency.active) || '';
+      if (code && money.indexOf(code) === -1) {
+        money += ' ' + code;
+      }
+      return money;
+    }
+
     return {
       isRentVariant: isRentVariant,
-      getDisplayCents: getDisplayCents
+      getDisplayCents: getDisplayCents,
+      getDepositCents: getDepositCents,
+      formatMoneyWithCode: formatMoneyWithCode
     };
   })();
   

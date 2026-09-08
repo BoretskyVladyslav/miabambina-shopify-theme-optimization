@@ -30,6 +30,75 @@
     return String(cents);
   }
 
+  function getVariants(section) {
+    var el = section.querySelector('[data-variant-json]');
+    if (!el) return [];
+    try {
+      return JSON.parse(el.textContent);
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function getCurrentVariant(section) {
+    var masterSelect = section.querySelector('[data-product-select]');
+    var variants = getVariants(section);
+    if (!masterSelect || !variants.length) return null;
+    var currentId = masterSelect.value;
+    for (var i = 0; i < variants.length; i++) {
+      if (String(variants[i].id) === String(currentId)) {
+        return variants[i];
+      }
+    }
+    return null;
+  }
+
+  function resolveFormat(section, variant) {
+    var picker = section.querySelector('[data-format-picker]');
+    if (picker) {
+      var selected = picker.querySelector('[data-format-select]:checked');
+      if (selected) return selected.getAttribute('data-format-select');
+    }
+    var sizeInput = section.querySelector('[data-format-option] [data-variant-input]:checked');
+    if (sizeInput) return classifyFormat(sizeInput.value);
+    if (variant && variant.option1) return classifyFormat(variant.option1);
+    if (variant && window.theme && theme.RentalPrice && theme.RentalPrice.isRentVariant(variant)) {
+      return 'rent';
+    }
+    return 'in-stock';
+  }
+
+  function syncRentalProperties(section, variant) {
+    var wrap = section.querySelector('[data-rental-properties]');
+    if (!wrap) return;
+    var format = resolveFormat(section, variant);
+    var isRent = format === 'rent';
+    var inputs = wrap.querySelectorAll('[data-rental-prop]');
+    for (var i = 0; i < inputs.length; i++) {
+      if (isRent) {
+        inputs[i].removeAttribute('disabled');
+      } else {
+        inputs[i].setAttribute('disabled', 'disabled');
+      }
+    }
+    if (!isRent || !variant || !window.theme || !theme.RentalPrice) return;
+    if (typeof theme.RentalPrice.isRentVariant === 'function' && !theme.RentalPrice.isRentVariant(variant)) return;
+
+    var variants = getVariants(section);
+    var currencyCode = wrap.getAttribute('data-currency-code') || '';
+    var feeInput = wrap.querySelector('[data-rental-prop="fee"]');
+    var depositInput = wrap.querySelector('[data-rental-prop="deposit"]');
+    var feeCents = theme.RentalPrice.getDisplayCents(variant, variants);
+    var depositCents = theme.RentalPrice.getDepositCents(variant, variants);
+    var formatFn = theme.RentalPrice.formatMoneyWithCode;
+    if (feeInput && typeof formatFn === 'function') {
+      feeInput.value = formatFn(feeCents, currencyCode);
+    }
+    if (depositInput && typeof formatFn === 'function') {
+      depositInput.value = formatFn(depositCents, currencyCode);
+    }
+  }
+
   function filterSizes(sizeWrap, format) {
     if (!sizeWrap) return;
     sizeWrap.querySelectorAll('.variant-input[data-format]').forEach(function (row) {
@@ -81,16 +150,6 @@
     }
   }
 
-  function getVariants(section) {
-    var el = section.querySelector('[data-variant-json]');
-    if (!el) return [];
-    try {
-      return JSON.parse(el.textContent);
-    } catch (err) {
-      return [];
-    }
-  }
-
   function updatePrice(section, variant, format) {
     var priceEl = section.querySelector('[data-product-price]');
     if (!priceEl || !variant) return;
@@ -113,17 +172,13 @@
 
     section.addEventListener('variantChange', function (evt) {
       var detail = evt.detail || {};
-      var variant = detail.variant;
-      var sizeInput = section.querySelector('[data-format-option] [data-variant-input]:checked');
-      var format = 'in-stock';
-      if (sizeInput) {
-        format = classifyFormat(sizeInput.value);
-      } else if (variant && variant.option1) {
-        format = classifyFormat(variant.option1);
-      }
+      var variant = detail.variant || getCurrentVariant(section);
+      var format = resolveFormat(section, variant);
+      syncRentalProperties(section, variant);
       requestAnimationFrame(function () {
         updatePrice(section, variant, format);
         toggleRentalInfo(section, format);
+        syncRentalProperties(section, variant);
       });
     });
   }
@@ -145,21 +200,10 @@
     toggleRentalInfo(section, format);
     selectSize(sizeWrap, format, false);
 
-    var variantJson = section.querySelector('[data-variant-json]');
-    var masterSelect = section.querySelector('[data-product-select]');
-    if (variantJson && masterSelect) {
-      try {
-        var variants = JSON.parse(variantJson.textContent);
-        var currentId = masterSelect.value;
-        var variant = null;
-        for (var i = 0; i < variants.length; i++) {
-          if (String(variants[i].id) === String(currentId)) {
-            variant = variants[i];
-            break;
-          }
-        }
-        if (variant) updatePrice(section, variant, format);
-      } catch (err) {}
+    var variant = getCurrentVariant(section);
+    if (variant) {
+      updatePrice(section, variant, format);
+      syncRentalProperties(section, variant);
     }
 
     picker.querySelectorAll('[data-format-select]').forEach(function (input) {
@@ -169,13 +213,28 @@
         picker.setAttribute('data-current-format', nextFormat);
         filterSizes(sizeWrap, nextFormat);
         toggleRentalInfo(section, nextFormat);
+        if (nextFormat !== 'rent') {
+          syncRentalProperties(section, getCurrentVariant(section));
+        }
         selectSize(sizeWrap, nextFormat, true);
+        syncRentalProperties(section, getCurrentVariant(section));
       });
+    });
+  }
+
+  function bindRentalForms() {
+    document.querySelectorAll('[data-rental-properties]').forEach(function (wrap) {
+      var section = wrap.closest('[data-section-type="product"]');
+      if (!section) return;
+      bindSection(section);
+      var variant = getCurrentVariant(section);
+      syncRentalProperties(section, variant);
     });
   }
 
   function init() {
     document.querySelectorAll('[data-format-picker]').forEach(bindPicker);
+    bindRentalForms();
   }
 
   if (document.readyState === 'loading') {
