@@ -138,7 +138,7 @@
       "terms": "Ich stimme den Nutzungsbedingungen zu",
       "terms_html": "Ich stimme den <a href='{{ url }}' target='_blank'>Nutzungsbedingungen</a> zu",
       "terms_confirm": "Sie müssen den Verkaufsbedingungen zustimmen, um auszuchecken",
-      "recommended_title": "Geht mit"
+      "recommended_title": "Geht mit","rental_badge":"RENTAL","rental_fee":"Rental Fee","rental_deposit":"Refundable Deposit","rental_terms":"4-14 Days (Deposit refunded upon return)","rental_terms_label":"Rental Terms","rental_total_includes_deposit":"Total charged at checkout ({{ total }}) includes the refundable security deposit."
     },
     "label": {
       "price": "Preis",
@@ -342,7 +342,7 @@
       "will_be_in_stock_after": "Wird nach dem {{ date }} auf Lager sein",
       "waiting_for_stock": "Inventar auf dem Weg",
       "view_in_space": "In Ihrem Bereich ansehen",
-      "view_in_space_label": "„Ansicht in Ihrem Raum“ lädt den Artikel im Augmented-Reality-Fenster"
+      "view_in_space_label": "„Ansicht in Ihrem Raum“ lädt den Artikel im Augmented-Reality-Fenster","format_label":"Format","format_in_stock":"In Stock (Ready to Ship)","format_custom":"Custom / Pre-Order (Made to Order)","format_rent":"Rent (Pre-Order to Rent)","rental_period":"Rental period: 4–14 days.","rental_deposit":"Security deposit: checkout charges the full retail price as a temporary refundable deposit. It is refunded when the dress is returned undamaged, minus the posted rental fee.","rental_shipping":"Shipping: Pre-Order to Rent usually arrives in 8–10 weeks. In-stock rentals typically deliver in 5–10 days.","custom_size_info":"Custom Size includes personalized tailoring to your child's exact measurements."
     }
   },
   "store_availability":{

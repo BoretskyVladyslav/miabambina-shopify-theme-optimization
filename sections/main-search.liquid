@@ -46,12 +46,8 @@
             {%- paginate search.results by paginate_by -%}
 
             <div {{ block.shopify_attributes }}>
-              {%- render 'collection-grid'
-                collection: search,
-                items: search.results,
-                grid_style: section.settings.grid_style,
-                quick_shop_enable: settings.quick_shop_enable
-              -%}
+              {%- assign paginated_items = search.results -%}
+              {%- include 'collection-grid', collection: search, items: paginated_items, grid_style: section.settings.grid_style, quick_shop_enable: settings.quick_shop_enable -%}
             </div>
 
             {%- liquid

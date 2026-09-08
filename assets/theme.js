@@ -406,10 +406,7 @@ lazySizesConfig.expFactor = 4;
       var list = variants || [];
       var hasPurchase = false;
       for (var i = 0; i < list.length; i++) {
-        if (isRentVariant(list[i])) {
-          var sibling = parseVariantCents(list[i]);
-          if (sibling != null) return sibling;
-        } else {
+        if (!isRentVariant(list[i])) {
           hasPurchase = true;
         }
       }
@@ -1126,9 +1123,12 @@ lazySizesConfig.expFactor = 4;
       },
   
       _updateMasterSelect: function(variant) {
-        this.container.querySelector(this.originalSelectorId).value = variant.id;
+        if (!variant || !this.container) return;
+        var selector = this.container.querySelector(this.originalSelectorId);
+        if (!selector) return;
+        selector.value = variant.id;
         // Force a change event so Shop Pay installments works after a variant is changed
-        this.container.querySelector(this.originalSelectorId).dispatchEvent(new Event('change', { bubbles: true }));
+        selector.dispatchEvent(new Event('change', { bubbles: true }));
       }
     });
   
@@ -7673,6 +7673,7 @@ lazySizesConfig.expFactor = 4;
         var variant = evt.detail.variant;
         var cartBtn = this.container.querySelector(this.selectors.addToCart);
         var cartBtnText = this.container.querySelector(this.selectors.addToCartText);
+        if (!cartBtn || !cartBtnText) return;
   
         if (variant) {
           if (variant.available) {
@@ -7704,6 +7705,7 @@ lazySizesConfig.expFactor = 4;
           if (!this.cache.price) {
             this.cacheElements();
           }
+          if (!this.cache.price) return;
   
           // Regular price (rent variants show SKU/$ title fee, not deposit)
           var displayCents = theme.RentalPrice && theme.RentalPrice.getDisplayCents
@@ -7713,8 +7715,12 @@ lazySizesConfig.expFactor = 4;
   
           // Sale price, if necessary
           if (variant.compare_at_price > variant.price) {
-            this.cache.comparePrice.innerHTML = theme.Currency.formatMoney(variant.compare_at_price, theme.settings.moneyFormat);
-            this.cache.priceWrapper.classList.remove(classes.hidden);
+            if (this.cache.comparePrice) {
+              this.cache.comparePrice.innerHTML = theme.Currency.formatMoney(variant.compare_at_price, theme.settings.moneyFormat);
+            }
+            if (this.cache.priceWrapper) {
+              this.cache.priceWrapper.classList.remove(classes.hidden);
+            }
             this.cache.price.classList.add(classes.onSale);
             if (this.cache.comparePriceA11y) {
               this.cache.comparePriceA11y.setAttribute('aria-hidden', 'false');
@@ -7731,13 +7737,17 @@ lazySizesConfig.expFactor = 4;
               savings = theme.Currency.formatMoney(savings, theme.settings.moneyFormat);
             }
   
-            this.cache.savePrice.classList.remove(classes.hidden);
-            this.cache.savePrice.innerHTML = theme.strings.savePrice.replace('[saved_amount]', savings);
+            if (this.cache.savePrice) {
+              this.cache.savePrice.classList.remove(classes.hidden);
+              this.cache.savePrice.innerHTML = theme.strings.savePrice.replace('[saved_amount]', savings);
+            }
           } else {
             if (this.cache.priceWrapper) {
               this.cache.priceWrapper.classList.add(classes.hidden);
             }
-            this.cache.savePrice.classList.add(classes.hidden);
+            if (this.cache.savePrice) {
+              this.cache.savePrice.classList.add(classes.hidden);
+            }
             this.cache.price.classList.remove(classes.onSale);
             if (this.cache.comparePriceA11y) {
               this.cache.comparePriceA11y.setAttribute('aria-hidden', 'true');

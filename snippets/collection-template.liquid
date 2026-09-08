@@ -93,10 +93,12 @@
       <div
         class="new-grid product-grid collection-grid"
         data-view="{{ productGridView }}"
-        data-scroll-to>
+        data-scroll-to
+        data-collection-page="{{ paginate.current_page }}">
 
         {%- liquid
-          for product in collection.products
+          assign paginated_items = collection.products
+          for product in paginated_items
             render 'product-grid-item', product: product
 
             if settings.quick_shop_enable

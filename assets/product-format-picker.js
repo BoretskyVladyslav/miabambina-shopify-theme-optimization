@@ -10,10 +10,10 @@
     return 'in-stock';
   }
 
-  function getDisplayCents(variant, format) {
+  function getDisplayCents(variant, format, variants) {
     if (!variant) return null;
     if (window.theme && theme.RentalPrice && typeof theme.RentalPrice.getDisplayCents === 'function') {
-      return theme.RentalPrice.getDisplayCents(variant);
+      return theme.RentalPrice.getDisplayCents(variant, variants);
     }
     if (format === 'rent') {
       var blob = [variant.sku, variant.option1, variant.title].join(' ');
@@ -24,10 +24,15 @@
   }
 
   function formatMoney(cents) {
+    if (window.theme && theme.RentalPrice && typeof theme.RentalPrice.formatMoneyWithCode === 'function') {
+      return theme.RentalPrice.formatMoneyWithCode(cents);
+    }
     if (window.theme && theme.Currency && typeof theme.Currency.formatMoney === 'function') {
       return theme.Currency.formatMoney(cents, theme.settings && theme.settings.moneyFormat);
     }
-    return String(cents);
+    var amount = Number(cents);
+    if (!isFinite(amount)) amount = 0;
+    return '$' + (amount / 100).toFixed(2);
   }
 
   function getVariants(section) {
@@ -61,10 +66,10 @@
     }
     var sizeInput = section.querySelector('[data-format-option] [data-variant-input]:checked');
     if (sizeInput) return classifyFormat(sizeInput.value);
-    if (variant && variant.option1) return classifyFormat(variant.option1);
-    if (variant && window.theme && theme.RentalPrice && theme.RentalPrice.isRentVariant(variant)) {
+    if (variant && window.theme && theme.RentalPrice && typeof theme.RentalPrice.isRentVariant === 'function' && theme.RentalPrice.isRentVariant(variant)) {
       return 'rent';
     }
+    if (variant && variant.option1) return classifyFormat(variant.option1);
     return 'in-stock';
   }
 
@@ -72,17 +77,23 @@
     var wrap = section.querySelector('[data-rental-properties]');
     if (!wrap) return;
     var format = resolveFormat(section, variant);
-    var isRent = format === 'rent';
+    var isRentVariant = !!(
+      format === 'rent' &&
+      variant &&
+      window.theme &&
+      theme.RentalPrice &&
+      typeof theme.RentalPrice.isRentVariant === 'function' &&
+      theme.RentalPrice.isRentVariant(variant)
+    );
     var inputs = wrap.querySelectorAll('[data-rental-prop]');
     for (var i = 0; i < inputs.length; i++) {
-      if (isRent) {
+      if (isRentVariant) {
         inputs[i].removeAttribute('disabled');
       } else {
         inputs[i].setAttribute('disabled', 'disabled');
       }
     }
-    if (!isRent || !variant || !window.theme || !theme.RentalPrice) return;
-    if (typeof theme.RentalPrice.isRentVariant === 'function' && !theme.RentalPrice.isRentVariant(variant)) return;
+    if (!isRentVariant || !theme.RentalPrice) return;
 
     var variants = getVariants(section);
     var currencyCode = wrap.getAttribute('data-currency-code') || '';
@@ -130,10 +141,11 @@
   function selectSize(sizeWrap, format, dispatch) {
     var input = pickSizeInput(sizeWrap, format);
     if (!input) return;
-    if (!input.checked) {
+    var changed = !input.checked;
+    if (changed) {
       input.checked = true;
     }
-    if (dispatch) {
+    if (dispatch || changed) {
       input.dispatchEvent(new Event('change', { bubbles: true }));
     }
   }
@@ -150,12 +162,24 @@
     }
   }
 
+  function toggleCustomSizeInfo(section) {
+    var note = section.querySelector('[data-custom-size-info]');
+    if (!note) return;
+    var format = resolveFormat(section, getCurrentVariant(section));
+    var sizeInput = section.querySelector('[data-format-option] [data-variant-input]:checked')
+      || section.querySelector('[data-variant-input]:checked');
+    var sizeVal = sizeInput ? String(sizeInput.value).toLowerCase() : '';
+    var show = format === 'custom' && sizeVal.indexOf('custom size') !== -1;
+    note.classList.toggle(HIDE, !show);
+  }
+
   function updatePrice(section, variant, format) {
     var priceEl = section.querySelector('[data-product-price]');
     if (!priceEl || !variant) return;
+    var variants = getVariants(section);
     var cents = (window.theme && theme.RentalPrice && typeof theme.RentalPrice.getDisplayCents === 'function')
-      ? theme.RentalPrice.getDisplayCents(variant, getVariants(section))
-      : getDisplayCents(variant, format);
+      ? theme.RentalPrice.getDisplayCents(variant, variants)
+      : getDisplayCents(variant, format, variants);
     if (cents == null) return;
     priceEl.innerHTML = formatMoney(cents);
   }
@@ -178,6 +202,7 @@
       requestAnimationFrame(function () {
         updatePrice(section, variant, format);
         toggleRentalInfo(section, format);
+        toggleCustomSizeInfo(section);
         syncRentalProperties(section, variant);
       });
     });
@@ -198,12 +223,14 @@
 
     filterSizes(sizeWrap, format);
     toggleRentalInfo(section, format);
+    toggleCustomSizeInfo(section);
     selectSize(sizeWrap, format, false);
 
     var variant = getCurrentVariant(section);
     if (variant) {
       updatePrice(section, variant, format);
       syncRentalProperties(section, variant);
+      toggleCustomSizeInfo(section);
     }
 
     picker.querySelectorAll('[data-format-select]').forEach(function (input) {
@@ -218,6 +245,7 @@
         }
         selectSize(sizeWrap, nextFormat, true);
         syncRentalProperties(section, getCurrentVariant(section));
+        toggleCustomSizeInfo(section);
       });
     });
   }
@@ -229,6 +257,7 @@
       bindSection(section);
       var variant = getCurrentVariant(section);
       syncRentalProperties(section, variant);
+      toggleCustomSizeInfo(section);
     });
   }
 

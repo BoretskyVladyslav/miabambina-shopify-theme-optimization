@@ -2,17 +2,16 @@
   Parameters:
     id - unique id
     title - string
-    content - string or markup
-    force_open - boolean to set default state (currently unused, was only for Product Reviews tab)
+    product - product object for Judge.me (required)
 {%- endcomment -%}
 {%- liquid
   assign output_tab = true
   assign force_open = true
-  if title == blank and content == blank
+  if title == blank
     assign output_tab = false
   endif
 -%}
-{%- if output_tab -%}
+{%- if output_tab and product != blank -%}
   <div class="collapsibles-wrapper">
     <button type="button"
       class="label collapsible-trigger collapsible-trigger-btn collapsible-trigger-btn--borders collapsible--auto-height{% if force_open %} is-open{% endif %}" aria-controls="Product-content-{{ id }}"

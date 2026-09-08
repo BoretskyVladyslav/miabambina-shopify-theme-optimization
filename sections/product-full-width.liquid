@@ -26,7 +26,7 @@
               {{ block.settings.content }}
               {{ block.settings.page.content }}
             {% endcapture %}
-            {%- render 'reviewstab', id: reviewstab_id, title: block.settings.title, content: reviewstab_content -%}
+            {%- render 'reviewstab', id: reviewstab_id, title: block.settings.title, content: reviewstab_content, product: product -%}
           </div>
         {%- when 'contact' -%}
           <div class="product-block product-block--tab" {{ block.shopify_attributes }}>

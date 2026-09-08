@@ -5,9 +5,11 @@
 
 {%- liquid
   assign is_rent = false
-  assign selected_dv = current_variant.option1 | downcase
-  if selected_dv contains 'rent'
-    assign is_rent = true
+  if current_variant
+    assign rental_blob = current_variant.option1 | append: ' ' | append: current_variant.option2 | append: ' ' | append: current_variant.option3 | append: ' ' | append: current_variant.title | append: ' ' | append: current_variant.sku | downcase
+    if rental_blob contains 'rent'
+      assign is_rent = true
+    endif
   endif
 -%}
 

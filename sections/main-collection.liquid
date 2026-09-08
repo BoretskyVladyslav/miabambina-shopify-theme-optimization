@@ -57,12 +57,8 @@
 
 
               <div {{ block.shopify_attributes }}>
-                {%- render 'collection-grid'
-                  collection: collection,
-                  items: collection.products,
-                  grid_style: block.settings.grid_style,
-                  quick_shop_enable: settings.quick_shop_enable
-                -%}
+                {%- assign paginated_items = collection.products -%}
+                {%- include 'collection-grid', collection: collection, items: paginated_items, grid_style: block.settings.grid_style, quick_shop_enable: settings.quick_shop_enable -%}
               </div>
 
 

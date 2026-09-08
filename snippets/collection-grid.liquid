@@ -92,8 +92,15 @@
     class="new-grid product-grid collection-grid"
     data-view="{{ productGridView }}"
     data-scroll-to
+    data-collection-page="{{ paginate.current_page }}"
   >
-    {%- for item in items -%}
+    {%- liquid
+      assign grid_items = items
+      if grid_items == blank
+        assign grid_items = collection.products
+      endif
+    -%}
+    {%- for item in grid_items -%}
       {%- if item.object_type == 'product' -%}
         {%- render 'product-grid-item', product: item -%}
 

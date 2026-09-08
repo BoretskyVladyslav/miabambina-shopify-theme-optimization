@@ -37,32 +37,19 @@
           assign rental_terms_display = 'cart.general.rental_terms' | t
         endif
 
-        assign rental_fee_cents = 0
-        assign rental_deposit_cents = 0
-        if is_rental
-          assign rental_fee_cents = product.original_price
-          if product.original_price >= 35000
-            if product.original_price < 45000
-              assign rental_fee_cents = 15000
-            elsif product.original_price < 55000
-              assign rental_fee_cents = 20000
-            elsif product.original_price < 70000
-              assign rental_fee_cents = 23000
-            elsif product.original_price < 85000
-              assign rental_fee_cents = 26000
-            else
-              assign rental_fee_cents = 28000
-            endif
-          endif
-          assign rental_deposit_cents = product.original_price | minus: rental_fee_cents
-          if rental_deposit_cents < 0
-            assign rental_deposit_cents = 0
-          endif
-        endif
+        assign rental_fee_display = product.properties['Rental Fee']
+        assign rental_deposit_display = product.properties['Refundable Security Deposit']
       -%}
       {%- if is_rental -%}
-        {%- capture rental_fee_display -%}{{ rental_fee_cents | money_with_currency }}{%- endcapture -%}
-        {%- capture rental_deposit_display -%}{{ rental_deposit_cents | money_with_currency }}{%- endcapture -%}
+        {%- if rental_fee_display == blank or rental_deposit_display == blank -%}
+          {%- include 'rental-pricing', rental_variant: product.variant, rental_product: product.product, rental_price_cents: product.original_price -%}
+          {%- if rental_fee_display == blank -%}
+            {%- capture rental_fee_display -%}{{ rental_fee_cents | money_with_currency }}{%- endcapture -%}
+          {%- endif -%}
+          {%- if rental_deposit_display == blank -%}
+            {%- capture rental_deposit_display -%}{{ rental_deposit_cents | money_with_currency }}{%- endcapture -%}
+          {%- endif -%}
+        {%- endif -%}
         {%- capture rental_total_display -%}{{ product.original_price | money_with_currency }}{%- endcapture -%}
         <div class="cart__item--variants">
           <div>

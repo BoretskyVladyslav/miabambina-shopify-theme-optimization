@@ -1,0 +1,72 @@
+{% doc %}
+  Assigns rental_is_rent, rental_has_purchase, rental_fee_cents, rental_deposit_cents.
+  Must be included (not rendered) so assigns stay in the parent scope.
+  @param {object} rental_variant - Variant (or line-item variant)
+  @param {object} rental_product - Product with variants
+  @param {number} [rental_price_cents] - Override price in cents (cart original_price)
+{% enddoc %}
+{%- liquid
+  assign rental_is_rent = false
+  assign rental_has_purchase = false
+  assign rental_fee_cents = 0
+  assign rental_deposit_cents = 0
+  assign rental_parsed_ok = false
+
+  if rental_variant
+    assign rental_blob = rental_variant.option1 | append: ' ' | append: rental_variant.option2 | append: ' ' | append: rental_variant.option3 | append: ' ' | append: rental_variant.title | append: ' ' | append: rental_variant.sku | downcase
+    if rental_blob contains 'rent'
+      assign rental_is_rent = true
+    endif
+
+    assign rental_base_price = rental_variant.price
+    if rental_price_cents != blank
+      assign rental_base_price = rental_price_cents
+    endif
+    assign rental_fee_cents = rental_base_price
+
+    if rental_product
+      for rental_v in rental_product.variants
+        assign rental_v_blob = rental_v.option1 | append: ' ' | append: rental_v.option2 | append: ' ' | append: rental_v.option3 | append: ' ' | append: rental_v.title | append: ' ' | append: rental_v.sku | downcase
+        unless rental_v_blob contains 'rent'
+          assign rental_has_purchase = true
+        endunless
+      endfor
+    endif
+
+    if rental_is_rent
+      assign rental_dollar_blob = rental_variant.sku | append: ' ' | append: rental_variant.option1 | append: ' ' | append: rental_variant.option2 | append: ' ' | append: rental_variant.option3 | append: ' ' | append: rental_variant.title
+      if rental_dollar_blob contains '$'
+        assign rental_dollar_parts = rental_dollar_blob | split: '$'
+        assign rental_dollar_token = rental_dollar_parts.last | replace: ',', '' | strip | split: ' ' | first | replace: 'USD', '' | replace: 'CAD', ''
+        assign rental_parsed_dollars = rental_dollar_token | times: 1.0
+        if rental_parsed_dollars > 0
+          assign rental_fee_cents = rental_parsed_dollars | times: 100 | round
+          assign rental_parsed_ok = true
+        endif
+      endif
+
+      unless rental_parsed_ok
+        if rental_has_purchase == false
+          assign rental_fee_cents = rental_base_price
+        elsif rental_base_price >= 35000
+          if rental_base_price < 45000
+            assign rental_fee_cents = 15000
+          elsif rental_base_price < 55000
+            assign rental_fee_cents = 20000
+          elsif rental_base_price < 70000
+            assign rental_fee_cents = 23000
+          elsif rental_base_price < 85000
+            assign rental_fee_cents = 26000
+          else
+            assign rental_fee_cents = 28000
+          endif
+        endif
+      endunless
+    endif
+
+    assign rental_deposit_cents = rental_base_price | minus: rental_fee_cents
+    if rental_deposit_cents < 0
+      assign rental_deposit_cents = 0
+    endif
+  endif
+-%}

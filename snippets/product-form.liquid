@@ -80,37 +80,7 @@
     </div>
   {%- endif -%} 
   <div class="shopify-payment-terms product__policies">{{ form | payment_terms }}</div>
-  {%- liquid
-    assign rental_is_rent = false
-    assign rental_fee_cents = 0
-    assign rental_deposit_cents = 0
-    if current_variant
-      assign rental_blob = current_variant.option1 | append: ' ' | append: current_variant.option2 | append: ' ' | append: current_variant.option3 | append: ' ' | append: current_variant.title | append: ' ' | append: current_variant.sku | downcase
-      if rental_blob contains 'rent'
-        assign rental_is_rent = true
-      endif
-      assign rental_fee_cents = current_variant.price
-      if rental_is_rent
-        if current_variant.price >= 35000
-          if current_variant.price < 45000
-            assign rental_fee_cents = 15000
-          elsif current_variant.price < 55000
-            assign rental_fee_cents = 20000
-          elsif current_variant.price < 70000
-            assign rental_fee_cents = 23000
-          elsif current_variant.price < 85000
-            assign rental_fee_cents = 26000
-          else
-            assign rental_fee_cents = 28000
-          endif
-        endif
-      endif
-      assign rental_deposit_cents = current_variant.price | minus: rental_fee_cents
-      if rental_deposit_cents < 0
-        assign rental_deposit_cents = 0
-      endif
-    endif
-  -%}
+  {%- include 'rental-pricing', rental_variant: current_variant, rental_product: product, rental_price_cents: current_variant.price -%}
   {%- capture rental_fee_money -%}{{ rental_fee_cents | money_with_currency }}{%- endcapture -%}
   {%- capture rental_deposit_money -%}{{ rental_deposit_cents | money_with_currency }}{%- endcapture -%}
   <div class="hide" data-rental-properties data-currency-code="{{ cart.currency.iso_code }}" aria-hidden="true">
