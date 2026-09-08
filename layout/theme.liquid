@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="{{ settings.color_button }}">
+  {%- render 'defer-head-assets' -%}
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="preconnect" href="https://cdn.shopify.com">
   <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
@@ -15,8 +16,9 @@
     <link
       rel="preload"
       as="image"
-      href="https://i.ytimg.com/vi/TNY63-gEGx8/sddefault.jpg"
-      imagesrcset="https://i.ytimg.com/vi/TNY63-gEGx8/mqdefault.jpg 320w, https://i.ytimg.com/vi/TNY63-gEGx8/hqdefault.jpg 480w, https://i.ytimg.com/vi/TNY63-gEGx8/sddefault.jpg 640w, https://i.ytimg.com/vi/TNY63-gEGx8/maxresdefault.jpg 1280w"
+      type="image/webp"
+      href="https://i.ytimg.com/vi_webp/TNY63-gEGx8/sddefault.webp"
+      imagesrcset="https://i.ytimg.com/vi_webp/TNY63-gEGx8/hqdefault.webp 480w, https://i.ytimg.com/vi_webp/TNY63-gEGx8/sddefault.webp 640w, https://i.ytimg.com/vi_webp/TNY63-gEGx8/maxresdefault.webp 1280w"
       imagesizes="100vw"
       fetchpriority="high">
   {%- elsif request.page_type == 'product' and product.featured_media -%}

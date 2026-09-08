@@ -47,22 +47,23 @@
     {% endif %}
   {%- endstyle -%}
 
+  {%- liquid
+    assign youtube_id = nil
+    if section.settings.video_url contains 'youtube.com/watch'
+      assign youtube_id = section.settings.video_url | split: 'v=' | last | split: '?' | first | split: '&' | first | split: '#' | first | slice: 0, 11
+    elsif section.settings.video_url contains 'youtu.be/'
+      assign youtube_id = section.settings.video_url | split: '.be/' | last | split: '?' | first | split: '&' | first | split: '#' | first | slice: 0, 11
+    endif
+  -%}
+
   <div
     data-section-id="{{ section.id }}"
     data-section-type="video-section"
+    {% if youtube_id != blank %}data-yt-facade="{{ youtube_id }}"{% endif %}
     class="video-parent-section hero hero--{{ section.id }}">
 
     <div class="hero__media hero__media--{{ section.id }}">
       <div class="hero__media-container">
-
-        {%- liquid
-          assign youtube_id = nil
-          if section.settings.video_url contains 'youtube.com/watch'
-            assign youtube_id = section.settings.video_url | split: 'v=' | last | split: '?' | first | split: '&' | first | split: '#' | first | slice: 0, 11
-          elsif section.settings.video_url contains 'youtu.be/'
-            assign youtube_id = section.settings.video_url | split: '.be/' | last | split: '?' | first | split: '&' | first | split: '#' | first | slice: 0, 11
-          endif
-        -%}
 
         {%- if youtube_id != blank -%}
           {%- liquid
@@ -70,29 +71,26 @@
             assign yt_poster_hq = 'https://i.ytimg.com/vi/' | append: youtube_id | append: '/hqdefault.jpg'
             assign yt_poster_sd = 'https://i.ytimg.com/vi/' | append: youtube_id | append: '/sddefault.jpg'
             assign yt_poster_max = 'https://i.ytimg.com/vi/' | append: youtube_id | append: '/maxresdefault.jpg'
+            assign yt_webp_hq = 'https://i.ytimg.com/vi_webp/' | append: youtube_id | append: '/hqdefault.webp'
+            assign yt_webp_sd = 'https://i.ytimg.com/vi_webp/' | append: youtube_id | append: '/sddefault.webp'
+            assign yt_webp_max = 'https://i.ytimg.com/vi_webp/' | append: youtube_id | append: '/maxresdefault.webp'
           -%}
-          <link
-            rel="preload"
-            as="image"
-            href="{{ yt_poster_sd }}"
-            imagesrcset="{{ yt_poster_mq }} 320w, {{ yt_poster_hq }} 480w, {{ yt_poster_sd }} 640w, {{ yt_poster_max }} 1280w"
-            imagesizes="100vw"
-            fetchpriority="high">
-          <img
-            class="hero__image"
-            src="{{ yt_poster_sd }}"
-            srcset="{{ yt_poster_mq }} 320w, {{ yt_poster_hq }} 480w, {{ yt_poster_sd }} 640w, {{ yt_poster_max }} 1280w"
-            sizes="100vw"
-            alt=""
-            width="1280"
-            height="720"
-            loading="eager"
-            fetchpriority="high">
-          <div
-            id="YouTubeVideo-{{ section.id }}"
-            class="video-div"
-            data-type="youtube"
-            data-video-id="{{ youtube_id }}"></div>
+          <picture>
+            <source
+              type="image/webp"
+              srcset="{{ yt_webp_hq }} 480w, {{ yt_webp_sd }} 640w, {{ yt_webp_max }} 1280w"
+              sizes="100vw">
+            <img
+              class="hero__image"
+              src="{{ yt_poster_sd }}"
+              srcset="{{ yt_poster_mq }} 320w, {{ yt_poster_hq }} 480w, {{ yt_poster_sd }} 640w, {{ yt_poster_max }} 1280w"
+              sizes="100vw"
+              alt=""
+              width="1280"
+              height="720"
+              loading="eager"
+              fetchpriority="high">
+          </picture>
         {%- endif -%}
 
         {%- if section.settings.video_url contains 'vimeo.com' -%}

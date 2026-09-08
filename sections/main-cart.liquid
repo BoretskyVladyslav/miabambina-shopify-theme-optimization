@@ -115,12 +115,13 @@
     </form>
   {%- endif -%}
 </div>
-{% if section.settings.datepicker_enabled %}
-  {{ '//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css' | stylesheet_tag }}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js" defer="defer"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" defer="defer"></script>
-  <script src="{{ 'datepicker-jquery.js' | asset_url }}" defer="defer"></script>
-  {% endif %}
+{%- if template.name == 'cart' and section.settings.datepicker_enabled -%}
+  <link rel="preload" as="style" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"></noscript>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js" defer></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" defer></script>
+  <script src="{{ 'datepicker-jquery.js' | asset_url }}" defer></script>
+{%- endif -%}
 {% schema %}
 
 {

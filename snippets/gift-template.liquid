@@ -117,10 +117,13 @@
                       {%- render 'tab-contact', id: tab_id, block: block -%}
                     </div>
                   {%- when 'description' -%}
-                    <div class="product-block{% if block.settings.is_tab %} product-block--tab{% endif %}" {{ block.shopify_attributes }}>
-                      {%- assign id = block.id | append: product.id -%}
-                      {%- render 'product-description', id: id, product: product, is_tab: block.settings.is_tab -%}
-                    </div>
+                    {%- assign desc_plain = product.description | strip_html | strip -%}
+                    {%- if product.empty? or desc_plain != blank -%}
+                      <div class="product-block{% if block.settings.is_tab %} product-block--tab{% endif %}" {{ block.shopify_attributes }}>
+                        {%- assign id = block.id | append: product.id -%}
+                        {%- render 'product-description', id: id, product: product, is_tab: block.settings.is_tab -%}
+                      </div>
+                    {%- endif -%}
                   {%- when 'price' -%}
                     <div class="product-block product-block--price" {{ block.shopify_attributes }}>
                      <!-- <label class="variant__label" for="ProductPrice-{{ section_id }}">

@@ -1,0 +1,61 @@
+{% doc %}
+  Starts a MutationObserver before content_for_header so render-blocking
+  third-party CSS/scripts (jQuery 2.2.3, Font Awesome, Google Fonts @import,
+  Judge.me CSS) are demoted. Reveals the Judge.me floating tab after window load.
+{% enddoc %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script>
+(function () {
+  var BLOCKING = /(jquery\/2\.2\.3|font-awesome|stackpath\.bootstrapcdn|fonts\.googleapis\.com\/css|judge\.me\/.*\.css|judgeme[^"' ]*shopify_v2\.css)/i;
+
+  function demote(node) {
+    if (!node || node.nodeType !== 1) return;
+    var href = node.href || node.getAttribute('href') || '';
+    var src = node.src || node.getAttribute('src') || '';
+
+    if (node.tagName === 'LINK' && (node.rel === 'stylesheet' || node.getAttribute('rel') === 'stylesheet') && BLOCKING.test(href)) {
+      node.media = 'print';
+      node.addEventListener('load', function () {
+        this.media = 'all';
+        this.onload = null;
+      });
+    }
+
+    if (node.tagName === 'SCRIPT' && /jquery\/2\.2\.3/.test(src) && !node.defer && !node.async) {
+      node.async = false;
+      node.defer = true;
+    }
+
+    if (node.tagName === 'STYLE' && node.textContent && /@import/.test(node.textContent) && /fonts\.googleapis/.test(node.textContent)) {
+      node.textContent = '';
+    }
+  }
+
+  var observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      mutation.addedNodes.forEach(demote);
+    });
+  });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+  document.addEventListener('DOMContentLoaded', function () {
+    observer.disconnect();
+    document.querySelectorAll('link[rel="stylesheet"]').forEach(demote);
+  });
+
+  function revealJudgeTab() {
+    var style = document.getElementById('DeferJdgmTab');
+    if (style && style.parentNode) style.parentNode.removeChild(style);
+  }
+
+  if (document.readyState === 'complete') {
+    revealJudgeTab();
+  } else {
+    window.addEventListener('load', revealJudgeTab);
+  }
+})();
+</script>
+<style id="DeferJdgmTab">
+  .jdgm-revs-tab,
+  .jdgm-revs-tab-btn { display: none !important; }
+</style>

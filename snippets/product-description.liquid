@@ -6,7 +6,8 @@
   {%- endif -%}
 {% endcapture %}
 {%- assign description = description | strip -%}
-{%- if description != blank -%}
+{%- assign description_plain = description | strip_html | strip -%}
+{%- if description_plain != blank -%}
   {%- if is_tab -%}
     {% assign title = 'products.product.description' | t %}
     {%- render 'tab', id: id, title: title, content: description -%}
