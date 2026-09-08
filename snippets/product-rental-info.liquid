@@ -1,0 +1,38 @@
+{% doc %}
+  Rental period, deposit, and shipping note shown when Rent is selected.
+  @param {object} current_variant - Currently selected product variant
+{% enddoc %}
+
+{%- liquid
+  assign is_rent = false
+  assign selected_dv = current_variant.option1 | downcase
+  if selected_dv contains 'rent'
+    assign is_rent = true
+  endif
+-%}
+
+<div
+  class="product-block product-block--sales-point{% unless is_rent %} hide{% endunless %}"
+  data-rental-info
+  {% unless is_rent %}hidden{% endunless %}>
+  <ul class="sales-points">
+    <li class="sales-point">
+      <span class="icon-and-text">
+        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-circle-checkmark" viewBox="0 0 64 64"><defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M52.68 24.48A22 22 0 1 1 47 15.93M21 32l8.5 8.5L57 13"/></svg>
+        <span>{{ 'products.product.rental_period' | t }}</span>
+      </span>
+    </li>
+    <li class="sales-point">
+      <span class="icon-and-text">
+        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-circle-checkmark" viewBox="0 0 64 64"><defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M52.68 24.48A22 22 0 1 1 47 15.93M21 32l8.5 8.5L57 13"/></svg>
+        <span>{{ 'products.product.rental_deposit' | t }}</span>
+      </span>
+    </li>
+    <li class="sales-point">
+      <span class="icon-and-text">
+        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-circle-checkmark" viewBox="0 0 64 64"><defs><style>.a{fill:none;stroke:#000;stroke-width:2px}</style></defs><path class="a" d="M52.68 24.48A22 22 0 1 1 47 15.93M21 32l8.5 8.5L57 13"/></svg>
+        <span>{{ 'products.product.rental_shipping' | t }}</span>
+      </span>
+    </li>
+  </ul>
+</div>

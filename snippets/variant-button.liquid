@@ -8,6 +8,19 @@
   if downcased_option contains size_trigger and block.settings.size_chart != blank
     assign is_size = true
   endif
+
+  assign format_picker_on = false
+  if needs_format_picker == true or needs_format_picker == 'true'
+    assign format_picker_on = true
+  endif
+
+  assign current_format = 'in-stock'
+  assign selected_dv = option.selected_value | downcase
+  if selected_dv contains 'rent'
+    assign current_format = 'rent'
+  elsif selected_dv contains 'preorder' or selected_dv contains 'pre-order' or selected_dv contains 'custom'
+    assign current_format = 'custom'
+  endif
 -%}
 
 
@@ -47,6 +60,7 @@
     name="{{ option.name }}"
     data-index="option{{ option_index }}"
     data-handle="{{ option.name | handleize }}"
+    {% if format_picker_on %}data-format-option{% endif %}
     id="ProductSelect-{{ section_id }}-{{ product.id }}-option-{{ forloop.index0 }}">
    <!-- <legend class="hide">{{ option.name }}</legend>-->
     {%- for value in option.values -%}
@@ -55,11 +69,39 @@
         if product.options.size == 1
           assign product_available = product.variants[forloop.index0].available
         endif
+
+        assign value_format = 'in-stock'
+        assign value_dv = value | downcase
+        if value_dv contains 'rent'
+          assign value_format = 'rent'
+        elsif value_dv contains 'preorder' or value_dv contains 'pre-order' or value_dv contains 'custom'
+          assign value_format = 'custom'
+        endif
+
+        assign display_size = value
+        if format_picker_on
+          if value_format == 'custom'
+            unless value_dv contains 'custom'
+              assign display_size = value | replace: 'Pre-order Size ', '' | replace: 'Pre-order ', '' | replace: 'Preorder ', ''
+            endunless
+          endif
+          if value_format == 'rent'
+            unless value_dv == 'pre-order to rent'
+              assign display_size = value | replace: 'RENT Size ', '' | replace: 'RENT ', '' | replace: 'Rent Size ', '' | replace: 'Rent ', ''
+            endunless
+          endif
+        endif
+
+        assign format_hide = false
+        if format_picker_on and value_format != current_format
+          assign format_hide = true
+        endif
       -%}
       <div
-        class="variant-input"
+        class="variant-input{% if format_hide %} hide{% endif %}"
         data-index="option{{ option_index }}"
-        data-value="{{ value | escape }}">
+        data-value="{{ value | escape }}"
+        data-format="{{ value_format }}">
         <input type="radio" form="{{ form_id }}"
           {% if option.selected_value == value %} checked="checked"{% endif %}
           value="{{ value | escape }}"
@@ -86,7 +128,7 @@
         {%- else -%}
           <label
             for="ProductSelect-{{ section_id }}-{{ product.id }}-option-{{ option.name | handleize }}-{{ value | url_encode }}"
-            class="variant__button-label{% unless product_available %} disabled{% endunless %}">{{ value | escape }}</label>
+            class="variant__button-label{% unless product_available %} disabled{% endunless %}">{{ display_size | escape }}</label>
         {%- endif -%}
       </div>
     {%- endfor -%}

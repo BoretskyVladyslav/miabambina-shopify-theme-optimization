@@ -1,0 +1,82 @@
+{% doc %}
+  Renders In Stock / Custom / Rent format pills for mixed Size option values.
+  @param {object} product - The product
+  @param {object} option - Size option with mixed format values
+  @param {string} section_id - Product section id
+{% enddoc %}
+
+{%- liquid
+  assign has_in_stock = false
+  assign has_custom = false
+  assign has_rent = false
+
+  for value in option.values
+    assign dv = value | downcase
+    if dv contains 'rent'
+      assign has_rent = true
+    elsif dv contains 'preorder' or dv contains 'pre-order' or dv contains 'custom'
+      assign has_custom = true
+    else
+      assign has_in_stock = true
+    endif
+  endfor
+
+  assign current_format = 'in-stock'
+  assign selected_dv = option.selected_value | downcase
+  if selected_dv contains 'rent'
+    assign current_format = 'rent'
+  elsif selected_dv contains 'preorder' or selected_dv contains 'pre-order' or selected_dv contains 'custom'
+    assign current_format = 'custom'
+  endif
+
+  assign format_name = 'format-' | append: section_id | append: '-' | append: product.id
+-%}
+
+<div class="variant-wrapper js" data-format-picker data-current-format="{{ current_format }}">
+  <p class="variant__label">{{ 'products.product.format_label' | t }}</p>
+  <fieldset class="variant-input-wrap" role="group" aria-label="{{ 'products.product.format_label' | t }}">
+    {%- if has_in_stock -%}
+      <div class="variant-input">
+        <input
+          type="radio"
+          name="{{ format_name }}"
+          id="Format-{{ section_id }}-{{ product.id }}-in-stock"
+          value="in-stock"
+          data-format-select="in-stock"
+          {% if current_format == 'in-stock' %}checked="checked"{% endif %}>
+        <label class="variant__button-label" for="Format-{{ section_id }}-{{ product.id }}-in-stock">
+          {{ 'products.product.format_in_stock' | t }}
+        </label>
+      </div>
+    {%- endif -%}
+    {%- if has_custom -%}
+      <div class="variant-input">
+        <input
+          type="radio"
+          name="{{ format_name }}"
+          id="Format-{{ section_id }}-{{ product.id }}-custom"
+          value="custom"
+          data-format-select="custom"
+          {% if current_format == 'custom' %}checked="checked"{% endif %}>
+        <label class="variant__button-label" for="Format-{{ section_id }}-{{ product.id }}-custom">
+          {{ 'products.product.format_custom' | t }}
+        </label>
+      </div>
+    {%- endif -%}
+    {%- if has_rent -%}
+      <div class="variant-input">
+        <input
+          type="radio"
+          name="{{ format_name }}"
+          id="Format-{{ section_id }}-{{ product.id }}-rent"
+          value="rent"
+          data-format-select="rent"
+          {% if current_format == 'rent' %}checked="checked"{% endif %}>
+        <label class="variant__button-label" for="Format-{{ section_id }}-{{ product.id }}-rent">
+          {{ 'products.product.format_rent' | t }}
+        </label>
+      </div>
+    {%- endif -%}
+  </fieldset>
+</div>
+<script src="{{ 'product-format-picker.js' | asset_url }}" defer="defer"></script>

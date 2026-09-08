@@ -261,7 +261,43 @@
                                 assign is_color = true
                               endif
                             endif
+
+                            assign has_in_stock = false
+                            assign has_custom = false
+                            assign has_rent = false
+                            for value in option.values
+                              assign dv = value | downcase
+                              if dv contains 'rent'
+                                assign has_rent = true
+                              elsif dv contains 'preorder' or dv contains 'pre-order' or dv contains 'custom'
+                                assign has_custom = true
+                              else
+                                assign has_in_stock = true
+                              endif
+                            endfor
+                            assign format_count = 0
+                            if has_in_stock
+                              assign format_count = format_count | plus: 1
+                            endif
+                            if has_custom
+                              assign format_count = format_count | plus: 1
+                            endif
+                            if has_rent
+                              assign format_count = format_count | plus: 1
+                            endif
+                            assign needs_format_picker = false
+                            if format_count > 1
+                              assign needs_format_picker = true
+                            endif
                           -%}
+
+                          {%- if needs_format_picker and block.settings.picker_type == 'button' -%}
+                            {%- render 'product-format-picker',
+                              product: product,
+                              option: option,
+                              section_id: section_id
+                            -%}
+                          {%- endif -%}
 
                           {%- if block.settings.picker_type == 'button' -%}
                             {%- render 'variant-button',
@@ -273,7 +309,8 @@
                               forloop: forloop,
                               variant_labels: block.settings.variant_labels,
                               is_color: is_color,
-                              color_option_index: color_option_index
+                              color_option_index: color_option_index,
+                              needs_format_picker: needs_format_picker
                             -%}
                           {%- else -%}
                             {%- render 'variant-dropdown',
@@ -284,6 +321,10 @@
                               forloop: forloop,
                               variant_labels: block.settings.variant_labels,
                             -%}
+                          {%- endif -%}
+
+                          {%- if has_rent and block.settings.picker_type == 'button' -%}
+                            {%- render 'product-rental-info', current_variant: current_variant -%}
                           {%- endif -%}
                         {%- endfor -%}
                       {%- endunless -%}
