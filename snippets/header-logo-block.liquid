@@ -56,12 +56,20 @@
           class="small--hide"
           src="{{ block.settings.logo | img_url: header_logo_size }}"
           srcset="{{ block.settings.logo | img_url: header_logo_size }} 1x, {{ block.settings.logo | img_url: header_logo_size, scale: 2 }} 2x"
-          alt="{{ block.settings.logo.alt | default: shop.name }}">
+          width="{{ block.settings.desktop_logo_width }}"
+          height="{{ block.settings.desktop_logo_width | divided_by: block.settings.logo.aspect_ratio | round }}"
+          alt="{{ block.settings.logo.alt | default: shop.name }}"
+          fetchpriority="low"
+          decoding="async">
         <img
           class="medium-up--hide"
           src="{{ block.settings.logo | img_url: header_logo_size_mobile }}"
           srcset="{{ block.settings.logo | img_url: header_logo_size_mobile }} 1x, {{ block.settings.logo | img_url: header_logo_size_mobile, scale: 2 }} 2x"
-          alt="{{ block.settings.logo.alt | default: shop.name }}">
+          width="{{ block.settings.mobile_logo_width }}"
+          height="{{ block.settings.mobile_logo_width | divided_by: block.settings.logo.aspect_ratio | round }}"
+          alt="{{ block.settings.logo.alt | default: shop.name }}"
+          fetchpriority="low"
+          decoding="async">
       </a>
       {%- if block.settings.logo-inverted -%}
         <a
@@ -71,12 +79,20 @@
             class="small--hide"
             src="{{ block.settings.logo-inverted | img_url: header_logo_size }}"
             srcset="{{ block.settings.logo-inverted | img_url: header_logo_size }} 1x, {{ block.settings.logo-inverted | img_url: header_logo_size, scale: 2 }} 2x"
-            alt="{{ block.settings.logo-inverted.alt | default: shop.name }}">
+            width="{{ block.settings.desktop_logo_width }}"
+            height="{{ block.settings.desktop_logo_width | divided_by: block.settings.logo-inverted.aspect_ratio | round }}"
+            alt="{{ block.settings.logo-inverted.alt | default: shop.name }}"
+            fetchpriority="low"
+            decoding="async">
           <img
             class="medium-up--hide"
             src="{{ block.settings.logo-inverted | img_url: header_logo_size_mobile }}"
             srcset="{{ block.settings.logo-inverted | img_url: header_logo_size_mobile }} 1x, {{ block.settings.logo-inverted | img_url: header_logo_size_mobile, scale: 2 }} 2x"
-            alt="{{ block.settings.logo.alt | default: shop.name }}">
+            width="{{ block.settings.mobile_logo_width }}"
+            height="{{ block.settings.mobile_logo_width | divided_by: block.settings.logo-inverted.aspect_ratio | round }}"
+            alt="{{ block.settings.logo.alt | default: shop.name }}"
+            fetchpriority="low"
+            decoding="async">
         </a>
       {%- endif -%}
     {%- else -%}

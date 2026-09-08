@@ -132,15 +132,24 @@
                       <a href="{{ block.settings.link }}" class="hero__sidebyside-image-link" aria-hidden="true">
                     {%- endif -%}
 
+                    {%- if forloop.first -%}
+                    {%- render 'hero-lcp-image',
+                      image: block.settings.image,
+                      block_id: block.id,
+                      focal_point: block.settings.focal_point
+                    -%}
+                    {%- else -%}
                     <img class="hero__image hero__image--{{ block.id }} lazyload"
                       src="{{ block.settings.image | img_url: '300x' }}"
                       data-src="{{ img_url }}"
                       data-aspectratio="{{ block.settings.image.aspect_ratio }}"
                       data-sizes="auto"
                       alt="{{ block.settings.image.alt | escape }}"
+                      loading="lazy"
                       {% unless block.settings.indent_image %}
                         style="object-position: {{ block.settings.focal_point }}"
                       {% endunless %}>
+                    {%- endif -%}
                     <noscript>
                       <img class="hero__image hero__image--{{ block.id }}"
                         src="{{ block.settings.image | img_url: '1400x' }}"

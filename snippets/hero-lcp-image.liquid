@@ -1,0 +1,53 @@
+{% doc %}
+  First above-the-fold slideshow image with native srcset, sizes, and LCP hints.
+  @param {image} image - Desktop hero image
+  @param {image} [image_mobile] - Optional mobile-only image
+  @param {string} block_id - Block id for CSS hooks
+  @param {string} [focal_point] - CSS object-position
+{% enddoc %}
+
+{%- liquid
+  assign lcp_alt = image.alt | escape
+  assign lcp_position = focal_point | default: 'center center'
+  assign has_mobile = false
+  if image_mobile != blank
+    assign has_mobile = true
+  endif
+-%}
+
+{%- if has_mobile -%}
+  {{ image_mobile | image_url: width: 750 | preload_tag: as: 'image', media: '(max-width: 768px)', fetchpriority: 'high' }}
+  {{ image | image_url: width: 1100 | preload_tag: as: 'image', media: '(min-width: 769px)', fetchpriority: 'high' }}
+  <picture>
+    <source
+      media="(max-width: 768px)"
+      srcset="{{ image_mobile | image_url: width: 375 }} 375w, {{ image_mobile | image_url: width: 550 }} 550w, {{ image_mobile | image_url: width: 750 }} 750w, {{ image_mobile | image_url: width: 990 }} 990w"
+      sizes="100vw"
+      width="{{ image_mobile.width }}"
+      height="{{ image_mobile.height }}">
+    <img
+      class="hero__image hero__image--{{ block_id }}"
+      src="{{ image | image_url: width: 1100 }}"
+      srcset="{{ image | image_url: width: 375 }} 375w, {{ image | image_url: width: 750 }} 750w, {{ image | image_url: width: 1100 }} 1100w, {{ image | image_url: width: 1500 }} 1500w, {{ image | image_url: width: 1780 }} 1780w"
+      sizes="100vw"
+      width="{{ image.width }}"
+      height="{{ image.height }}"
+      alt="{{ lcp_alt }}"
+      fetchpriority="high"
+      loading="eager"
+      style="object-position: {{ lcp_position }}">
+  </picture>
+{%- else -%}
+  {{ image | image_url: width: 750 | preload_tag: as: 'image', fetchpriority: 'high' }}
+  <img
+    class="hero__image hero__image--{{ block_id }}"
+    src="{{ image | image_url: width: 1100 }}"
+    srcset="{{ image | image_url: width: 375 }} 375w, {{ image | image_url: width: 750 }} 750w, {{ image | image_url: width: 1100 }} 1100w, {{ image | image_url: width: 1500 }} 1500w, {{ image | image_url: width: 1780 }} 1780w"
+    sizes="100vw"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+    alt="{{ lcp_alt }}"
+    fetchpriority="high"
+    loading="eager"
+    style="object-position: {{ lcp_position }}">
+{%- endif -%}

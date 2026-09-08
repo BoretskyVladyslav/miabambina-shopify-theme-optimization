@@ -90,6 +90,14 @@
                   {%- endif -%}
 
                     {%- if block.settings.image != blank -%}
+                      {%- if forloop.first -%}
+                        {%- render 'hero-lcp-image',
+                          image: block.settings.image,
+                          image_mobile: block.settings.image_mobile,
+                          block_id: block.id,
+                          focal_point: block.settings.focal_point
+                        -%}
+                      {%- else -%}
                       {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
                       <img class="hero__image hero__image--{{ block.id }} lazyload{% if has_mobile_image %} small--hide{% endif %}"
@@ -97,7 +105,8 @@
                         data-src="{{ img_url }}"
                         data-aspectratio="{{ block.settings.image.aspect_ratio }}"
                         data-sizes="auto"
-                        alt="{{ block.settings.image.alt | escape }}">
+                        alt="{{ block.settings.image.alt | escape }}"
+                        loading="lazy">
                       {%- if has_mobile_image -%}
                         {%- assign img_url_mobile = block.settings.image_mobile | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
                         <img class="hero__image hero__image--{{ block.id }} lazyload medium-up--hide"
@@ -105,13 +114,15 @@
                           data-src="{{ img_url_mobile }}"
                           data-aspectratio="{{ block.settings.image_mobile.aspect_ratio }}"
                           data-sizes="auto"
-                          alt="{{ block.settings.image_mobile.alt | escape }}">
+                          alt="{{ block.settings.image_mobile.alt | escape }}"
+                          loading="lazy">
                       {%- endif -%}
                       <noscript>
                         <img class="hero__image hero__image--{{ block.id }}"
                           src="{{ block.settings.image | img_url: '1400x' }}"
                           alt="{{ block.settings.image.alt | escape }}">
                       </noscript>
+                      {%- endif -%}
                     {%- else -%}
                       {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
                     {%- endif -%}

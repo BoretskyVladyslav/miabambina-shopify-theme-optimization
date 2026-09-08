@@ -6,16 +6,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="{{ settings.color_button }}">
   <link rel="canonical" href="{{ canonical_url }}">
-  <link rel="preload" as="script" href="{{ 'theme.js' | asset_url }}">
   <link rel="preconnect" href="https://cdn.shopify.com">
-  <link rel="preconnect" href="https://fonts.shopifycdn.com">
+  <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
   <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
-  <link rel="dns-prefetch" href="https://ajax.googleapis.com">
   <link rel="dns-prefetch" href="https://maps.googleapis.com">
   <link rel="dns-prefetch" href="https://maps.gstatic.com">
-<style>
-@import 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400&display=swap';
-</style>
+  {%- if request.page_type == 'product' and product.featured_media -%}
+    {%- assign lcp_image = product.featured_media.preview_image -%}
+    <link
+      rel="preload"
+      as="image"
+      href="{{ lcp_image | image_url: width: 720 }}"
+      imagesrcset="{{ lcp_image | image_url: width: 360 }} 360w, {{ lcp_image | image_url: width: 540 }} 540w, {{ lcp_image | image_url: width: 720 }} 720w, {{ lcp_image | image_url: width: 900 }} 900w, {{ lcp_image | image_url: width: 1080 }} 1080w"
+      imagesizes="(min-width: 769px) 50vw, 100vw"
+      fetchpriority="high">
+  {%- endif -%}
   {%- if settings.favicon != blank -%}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
   {%- endif -%}
@@ -226,13 +231,46 @@
   }
 </script>
 {%-endif %}
-<!-- Global site tag (gtag.js) - Google Ads: 364363723 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-364363723"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-364363723');
+  (function() {
+    var GTAG_ID = 'AW-364363723';
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
+
+    function loadDeferredTrackers() {
+      if (window.__deferredTrackersLoaded) return;
+      window.__deferredTrackersLoaded = true;
+
+      var gtagScript = document.createElement('script');
+      gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + GTAG_ID;
+      gtagScript.async = true;
+      document.head.appendChild(gtagScript);
+      window.gtag('js', new Date());
+      window.gtag('config', GTAG_ID);
+
+      document.querySelectorAll('script[data-deferred-tracker]').forEach(function(el) {
+        if (!el.src) return;
+        var s = document.createElement('script');
+        s.src = el.src;
+        s.async = true;
+        document.body.appendChild(s);
+      });
+    }
+
+    function scheduleTrackers() {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadDeferredTrackers, { timeout: 4000 });
+      } else {
+        setTimeout(loadDeferredTrackers, 1);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', scheduleTrackers);
+    } else {
+      scheduleTrackers();
+    }
+  })();
 </script>
 </head>
 

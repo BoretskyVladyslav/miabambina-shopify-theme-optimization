@@ -539,27 +539,40 @@ lazySizesConfig.expFactor = 4;
   })();
   
   theme.loadImageSection = function(container) {
-    // Wait until images inside container have lazyloaded class
     function setAsLoaded() {
       container.classList.remove('loading', 'loading--delayed');
       container.classList.add('loaded');
     }
-  
+
     function checkForLazyloadedImage() {
       return container.querySelector('.lazyloaded');
     }
-  
-    // If it has SVGs it's in the onboarding state so set as loaded
-    if (container.querySelector('svg')) {
+
+    function eagerImage() {
+      return container.querySelector('img[fetchpriority="high"], img[loading="eager"]');
+    }
+
+    if (container.querySelector('svg') && !container.querySelector('img')) {
       setAsLoaded();
       return;
-    };
-  
+    }
+
     if (checkForLazyloadedImage()) {
       setAsLoaded();
       return;
     }
-  
+
+    var lcpImg = eagerImage();
+    if (lcpImg) {
+      if (lcpImg.complete) {
+        setAsLoaded();
+        return;
+      }
+      lcpImg.addEventListener('load', setAsLoaded, { once: true });
+      lcpImg.addEventListener('error', setAsLoaded, { once: true });
+      return;
+    }
+
     var interval = setInterval(function() {
       if (checkForLazyloadedImage()) {
         clearInterval(interval);
@@ -6352,21 +6365,15 @@ lazySizesConfig.expFactor = 4;
           );
         }.bind(this);
 
-        window.addEventListener('load', this.startPlayer);
         window.addEventListener('touchstart', this.startPlayer, { passive: true });
         window.addEventListener('click', this.startPlayer);
         window.addEventListener('keydown', this.startPlayer);
-
-        if (document.readyState === 'complete') {
-          this.startPlayer();
-        }
       },
 
       removeYoutubeListeners: function() {
         if (!this.startPlayer) {
           return;
         }
-        window.removeEventListener('load', this.startPlayer);
         window.removeEventListener('touchstart', this.startPlayer);
         window.removeEventListener('click', this.startPlayer);
         window.removeEventListener('keydown', this.startPlayer);
@@ -7234,7 +7241,7 @@ lazySizesConfig.expFactor = 4;
         });
   
         if (theme.config.bpSmall) {
-          this.cloneFooter();
+          theme.scheduleIdle(this.cloneFooter.bind(this));
         }
   
         window.on('resize' + namespace, theme.utils.debounce(300, theme.sizeDrawer));
@@ -8833,38 +8840,33 @@ lazySizesConfig.expFactor = 4;
     else document.addEventListener('DOMContentLoaded', callback);
   }
 
-  // Load generic JS. Also reinitializes when sections are
-  // added, edited, or removed in Shopify's editor
+  theme.scheduleIdle = function(fn, timeout) {
+    if (typeof fn !== 'function') return;
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(fn, { timeout: timeout || 2000 });
+    } else {
+      setTimeout(fn, 1);
+    }
+  };
+
   theme.initGlobals = function() {
     theme.collapsibles.init();
     theme.videoModal();
     theme.animationObserver();
-  }
+  };
 
   DOMready(function(){
     theme.sections = new theme.Sections();
 
-    theme.sections.register('slideshow-section', theme.SlideshowSection);
     theme.sections.register('header', theme.HeaderSection);
     theme.sections.register('toolbar', theme.Toolbar);
     theme.sections.register('product', theme.Product);
-    theme.sections.register('password-header', theme.PasswordHeader);
-    theme.sections.register('photoswipe', theme.Photoswipe);
-    theme.sections.register('product-recommendations', theme.Recommendations);
-    theme.sections.register('background-image', theme.BackgroundImage);
-    theme.sections.register('testimonials', theme.Testimonials);
+    theme.sections.register('slideshow-section', theme.SlideshowSection);
     theme.sections.register('video-section', theme.VideoSection);
-    theme.sections.register('map', theme.Maps);
-    theme.sections.register('footer-section', theme.FooterSection);
-    theme.sections.register('store-availability', theme.StoreAvailability);
-    theme.sections.register('recently-viewed', theme.RecentlyViewed);
-    theme.sections.register('vendor-products', theme.VendorProducts);
-    theme.sections.register('newsletter-popup', theme.NewsletterPopup);
-    theme.sections.register('collection-header', theme.CollectionHeader);
     theme.sections.register('collection-template', theme.Collection);
+    theme.sections.register('photoswipe', theme.Photoswipe);
 
     theme.initGlobals();
-    theme.rteInit();
 
     if (theme.settings.isCustomerTemplate) {
       theme.customerTemplates();
@@ -8917,6 +8919,21 @@ lazySizesConfig.expFactor = 4;
     theme.pageTransitions();
 
     document.dispatchEvent(new CustomEvent('page:loaded'));
+
+    theme.scheduleIdle(function() {
+      theme.sections.register('password-header', theme.PasswordHeader);
+      theme.sections.register('product-recommendations', theme.Recommendations);
+      theme.sections.register('background-image', theme.BackgroundImage);
+      theme.sections.register('testimonials', theme.Testimonials);
+      theme.sections.register('map', theme.Maps);
+      theme.sections.register('footer-section', theme.FooterSection);
+      theme.sections.register('store-availability', theme.StoreAvailability);
+      theme.sections.register('recently-viewed', theme.RecentlyViewed);
+      theme.sections.register('vendor-products', theme.VendorProducts);
+      theme.sections.register('newsletter-popup', theme.NewsletterPopup);
+      theme.sections.register('collection-header', theme.CollectionHeader);
+      theme.rteInit();
+    });
   });
 
 })();
