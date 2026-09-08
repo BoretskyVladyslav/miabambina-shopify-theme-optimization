@@ -80,15 +80,12 @@
     </div>
   {%- endif -%} 
   <div class="shopify-payment-terms product__policies">{{ form | payment_terms }}</div>
-  {%- include 'rental-pricing', rental_variant: current_variant, rental_product: product, rental_price_cents: current_variant.price -%}
-  {%- capture rental_fee_money -%}{{ rental_fee_cents | money_with_currency }}{%- endcapture -%}
-  {%- capture rental_deposit_money -%}{{ rental_deposit_cents | money_with_currency }}{%- endcapture -%}
-  <div class="hide" data-rental-properties data-currency-code="{{ cart.currency.iso_code }}" aria-hidden="true">
-    <input type="hidden" name="properties[_is_rental]" value="true" data-rental-prop="flag"{% unless rental_is_rent %} disabled{% endunless %}>
-    <input type="hidden" name="properties[Rental Fee]" value="{{ rental_fee_money | strip | escape }}" data-rental-prop="fee"{% unless rental_is_rent %} disabled{% endunless %}>
-    <input type="hidden" name="properties[Refundable Security Deposit]" value="{{ rental_deposit_money | strip | escape }}" data-rental-prop="deposit"{% unless rental_is_rent %} disabled{% endunless %}>
-    <input type="hidden" name="properties[Rental Terms]" value="{{ 'cart.general.rental_terms' | t | escape }}" data-rental-prop="terms"{% unless rental_is_rent %} disabled{% endunless %}>
-  </div>
+  {%- render 'rental-pricing',
+    rental_variant: current_variant,
+    rental_product: product,
+    rental_price_cents: current_variant.price,
+    rental_output: 'properties'
+  -%}
   <select name="id" data-product-select class="product-single__variants no-js">
     {%- for variant in product.variants -%}
       {%- if variant.available -%}

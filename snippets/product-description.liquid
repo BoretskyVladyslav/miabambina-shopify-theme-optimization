@@ -5,15 +5,30 @@
     {{ product.description }}
   {%- endif -%}
 {% endcapture %}
+{%- liquid
+  assign description = description | replace: '&ndash; Price $', 'PRICEAMT' | replace: '– Price $', 'PRICEAMT' | replace: '— Price $', 'PRICEAMT' | replace: ' - Price $', 'PRICEAMT' | replace: '- Price $', 'PRICEAMT' | replace: ' Price $', 'PRICEAMT' | replace: 'Price $', 'PRICEAMT'
+-%}
+{%- capture description -%}
+  {%- assign desc_chunks = description | split: 'PRICEAMT' -%}
+  {%- for chunk in desc_chunks -%}
+    {%- if forloop.first -%}
+      {{ chunk }}
+    {%- else -%}
+      {%- assign amt_bit = chunk | strip | split: '<' | first | split: '&' | first | split: ' ' | first -%}
+      {%- assign amt_len = amt_bit | size -%}
+      {%- if amt_len > 0 and amt_len <= 20 -%}
+        {{ chunk | remove_first: amt_bit }}
+      {%- else -%}
+        {{ chunk }}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
 {%- if is_tab -%}
   {% assign title = 'products.product.description' | t %}
-  {%- capture description_html -%}
-    <div data-product-description>{{ description }}</div>
-  {%- endcapture -%}
-  {%- render 'tab', id: id, title: title, content: description_html -%}
+  {%- render 'tab', id: id, title: title, content: description -%}
 {%- else -%}
-  <div class="rte" data-product-description>
+  <div class="rte">
     {{ description }}
   </div>
 {%- endif -%}
-<script src="{{ 'product-description-sanitize.js' | asset_url }}" defer="defer"></script>

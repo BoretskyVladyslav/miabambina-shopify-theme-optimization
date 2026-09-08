@@ -180,15 +180,15 @@
                         <span id="PriceA11y-{{ section_id }}" class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
                       {%- endif -%}
 
-                      {%- include 'rental-pricing', rental_variant: current_variant, rental_product: product, rental_price_cents: current_variant.price -%}
-                      {%- assign display_price = current_variant.price -%}
-                      {%- if rental_is_rent -%}
-                        {%- assign display_price = rental_fee_cents -%}
-                      {%- endif -%}
                       <span data-product-price
                         class="product__price{% if current_variant.compare_at_price > current_variant.price %} on-sale{% endif %}">
                         {%- unless product.empty? -%}
-                          {%- render 'price' with display_price -%}
+                          {%- render 'rental-pricing',
+                            rental_variant: current_variant,
+                            rental_product: product,
+                            rental_price_cents: current_variant.price,
+                            rental_output: 'price'
+                          -%}
                         {%- else -%}
                           {%- render 'price' with 1999 -%}
                         {%- endunless -%}

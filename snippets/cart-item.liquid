@@ -42,12 +42,25 @@
       -%}
       {%- if is_rental -%}
         {%- if rental_fee_display == blank or rental_deposit_display == blank -%}
-          {%- include 'rental-pricing', rental_variant: product.variant, rental_product: product.product, rental_price_cents: product.original_price -%}
           {%- if rental_fee_display == blank -%}
-            {%- capture rental_fee_display -%}{{ rental_fee_cents | money_with_currency }}{%- endcapture -%}
+            {%- capture rental_fee_display -%}
+              {%- render 'rental-pricing',
+                rental_variant: product.variant,
+                rental_product: product.product,
+                rental_price_cents: product.original_price,
+                rental_output: 'fee_money'
+              -%}
+            {%- endcapture -%}
           {%- endif -%}
           {%- if rental_deposit_display == blank -%}
-            {%- capture rental_deposit_display -%}{{ rental_deposit_cents | money_with_currency }}{%- endcapture -%}
+            {%- capture rental_deposit_display -%}
+              {%- render 'rental-pricing',
+                rental_variant: product.variant,
+                rental_product: product.product,
+                rental_price_cents: product.original_price,
+                rental_output: 'deposit_money'
+              -%}
+            {%- endcapture -%}
           {%- endif -%}
         {%- endif -%}
         {%- capture rental_total_display -%}{{ product.original_price | money_with_currency }}{%- endcapture -%}
