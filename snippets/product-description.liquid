@@ -7,9 +7,13 @@
 {% endcapture %}
 {%- if is_tab -%}
   {% assign title = 'products.product.description' | t %}
-  {%- render 'tab', id: id, title: title, content: description -%}
+  {%- capture description_html -%}
+    <div data-product-description>{{ description }}</div>
+  {%- endcapture -%}
+  {%- render 'tab', id: id, title: title, content: description_html -%}
 {%- else -%}
-  <div class="rte">
+  <div class="rte" data-product-description>
     {{ description }}
   </div>
 {%- endif -%}
+<script src="{{ 'product-description-sanitize.js' | asset_url }}" defer="defer"></script>

@@ -342,7 +342,7 @@
       "will_be_in_stock_after": "Estará disponible después {{ date }}",
       "waiting_for_stock": "Inventario en el camino",
       "view_in_space": "Ver en tu espacio",
-      "view_in_space_label": "Ver en tu espacio, carga el artículo en la ventana de realidad aumentada","format_label":"Format","format_in_stock":"In Stock (Ready to Ship)","format_custom":"Custom / Pre-Order (Made to Order)","format_rent":"Rent (Pre-Order to Rent)","rental_period":"Rental period: 4–14 days.","rental_deposit":"Security deposit: checkout charges the full retail price as a temporary refundable deposit. It is refunded when the dress is returned undamaged, minus the posted rental fee.","rental_shipping":"Shipping: Pre-Order to Rent usually arrives in 8–10 weeks. In-stock rentals typically deliver in 5–10 days.","custom_size_info":"Custom Size includes personalized tailoring to your child's exact measurements."
+      "view_in_space_label": "Ver en tu espacio, carga el artículo en la ventana de realidad aumentada","format_label":"Format","format_in_stock":"In Stock (Ready to Ship)","format_custom":"Custom / Pre-Order (Made to Order)","format_rent":"Rent (Pre-Order to Rent)","rental_period":"Rental period: 4–14 days.","rental_deposit":"Security deposit: checkout charges the full retail price as a temporary refundable deposit. It is refunded when the dress is returned undamaged, minus the posted rental fee.","rental_shipping":"Shipping: Pre-Order / Custom / Rent usually arrives in 8–10 weeks. Ready to Ship / In Stock typically delivers in 2–10 business days.","custom_size_info":"Custom Size includes personalized tailoring to your child's exact measurements."
     }
   },
   "store_availability":{

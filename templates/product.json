@@ -55,14 +55,14 @@
           "type": "sales_point",
           "settings": {
             "icon": "checkmark",
-            "text": "Estimated Delivery Time for Dresses READY TO SHIP is 2-10 business days"
+            "text": "Ready to Ship / In Stock: 2–10 business days"
           }
         },
         "sales_point3": {
           "type": "sales_point",
           "settings": {
             "icon": "checkmark",
-            "text": "Estimated Delivery Time For \"Pre-Order\" Dresses is around 8-12 weeks."
+            "text": "Pre-Order / Custom / Rent: 8–10 weeks"
           }
         },
         "sales_point": {
