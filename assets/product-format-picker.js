@@ -163,11 +163,15 @@
   }
 
   function toggleCustomSizeInfo(section) {
-    var note = section.querySelector('[data-custom-size-info]');
+    var formatWrap = section.querySelector('[data-format-option]');
+    var note = formatWrap
+      ? formatWrap.parentNode.querySelector('[data-custom-size-info]')
+      : section.querySelector('[data-custom-size-info]');
     if (!note) return;
     var format = resolveFormat(section, getCurrentVariant(section));
-    var sizeInput = section.querySelector('[data-format-option] [data-variant-input]:checked')
-      || section.querySelector('[data-variant-input]:checked');
+    var sizeInput = formatWrap
+      ? formatWrap.querySelector('[data-variant-input]:checked')
+      : section.querySelector('[data-variant-input]:checked');
     var sizeVal = sizeInput ? String(sizeInput.value).toLowerCase() : '';
     var show = format === 'custom' && sizeVal.indexOf('custom size') !== -1;
     note.classList.toggle(HIDE, !show);
