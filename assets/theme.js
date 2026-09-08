@@ -432,14 +432,32 @@ lazySizesConfig.expFactor = 4;
     }
 
     function formatMoneyWithCode(cents, currencyCode) {
+      var amount = Number(cents);
+      if (!isFinite(amount)) amount = 0;
+
       var money = '';
-      if (theme.Currency && typeof theme.Currency.formatMoney === 'function') {
-        money = String(theme.Currency.formatMoney(cents, theme.settings && theme.settings.moneyFormat));
-      } else {
-        money = String(cents);
+      try {
+        if (theme.Currency && typeof theme.Currency.formatMoney === 'function') {
+          money = String(theme.Currency.formatMoney(amount, theme.settings && theme.settings.moneyFormat));
+        }
+      } catch (err) {
+        money = '';
       }
-      money = money.replace(/<[^>]+>/g, '');
-      var code = currencyCode || (window.Shopify && Shopify.currency && Shopify.currency.active) || '';
+      money = money.replace(/<[^>]+>/g, '').trim();
+
+      var centsToken = String(Math.round(Math.abs(amount)));
+      var leakedRawCents = amount >= 1000 && centsToken.length >= 4
+        && money.indexOf(centsToken) !== -1
+        && money.indexOf('.') === -1
+        && money.indexOf(',') === -1;
+      if (!money || leakedRawCents) {
+        money = '$' + (amount / 100).toFixed(2);
+      }
+
+      var code = currencyCode
+        || (theme.settings && theme.settings.cartCurrency)
+        || (window.Shopify && Shopify.currency && Shopify.currency.active)
+        || '';
       if (code && money.indexOf(code) === -1) {
         money += ' ' + code;
       }
