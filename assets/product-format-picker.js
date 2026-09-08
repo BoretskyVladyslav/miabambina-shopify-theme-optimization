@@ -10,18 +10,15 @@
     return 'in-stock';
   }
 
-  function parseSkuRentCents(sku) {
-    if (!sku) return null;
-    var match = String(sku).replace(/,/g, '').match(/\$(\d+(?:\.\d{1,2})?)/);
-    if (!match) return null;
-    return Math.round(parseFloat(match[1]) * 100);
-  }
-
   function getDisplayCents(variant, format) {
     if (!variant) return null;
+    if (window.theme && theme.RentalPrice && typeof theme.RentalPrice.getDisplayCents === 'function') {
+      return theme.RentalPrice.getDisplayCents(variant);
+    }
     if (format === 'rent') {
-      var skuCents = parseSkuRentCents(variant.sku);
-      if (skuCents != null) return skuCents;
+      var blob = [variant.sku, variant.option1, variant.title].join(' ');
+      var match = String(blob).replace(/,/g, '').match(/\$(\d+(?:\.\d{1,2})?)/);
+      if (match) return Math.round(parseFloat(match[1]) * 100);
     }
     return variant.price;
   }
@@ -84,10 +81,22 @@
     }
   }
 
+  function getVariants(section) {
+    var el = section.querySelector('[data-variant-json]');
+    if (!el) return [];
+    try {
+      return JSON.parse(el.textContent);
+    } catch (err) {
+      return [];
+    }
+  }
+
   function updatePrice(section, variant, format) {
     var priceEl = section.querySelector('[data-product-price]');
     if (!priceEl || !variant) return;
-    var cents = getDisplayCents(variant, format);
+    var cents = (window.theme && theme.RentalPrice && typeof theme.RentalPrice.getDisplayCents === 'function')
+      ? theme.RentalPrice.getDisplayCents(variant, getVariants(section))
+      : getDisplayCents(variant, format);
     if (cents == null) return;
     priceEl.innerHTML = formatMoney(cents);
   }

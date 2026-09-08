@@ -360,6 +360,73 @@ lazySizesConfig.expFactor = 4;
       getBaseUnit: getBaseUnit
     }
   })();
+
+  theme.RentalPrice = (function() {
+    function parseDollarCents(text) {
+      if (!text) return null;
+      var match = String(text).replace(/,/g, '').match(/\$(\d+(?:\.\d{1,2})?)/);
+      if (!match) return null;
+      return Math.round(parseFloat(match[1]) * 100);
+    }
+
+    function isRentVariant(variant) {
+      if (!variant) return false;
+      var blob = [variant.option1, variant.option2, variant.option3, variant.title, variant.sku, variant.name]
+        .join(' ')
+        .toLowerCase();
+      return blob.indexOf('rent') !== -1;
+    }
+
+    function fallbackRentCents(retailCents) {
+      var dollars = Number(retailCents) / 100;
+      if (!dollars) return null;
+      if (dollars < 450) return 15000;
+      if (dollars < 550) return 20000;
+      if (dollars < 700) return 23000;
+      if (dollars < 850) return 26000;
+      return 28000;
+    }
+
+    function parseVariantCents(variant) {
+      if (!variant) return null;
+      return parseDollarCents(variant.sku)
+        || parseDollarCents(variant.option1)
+        || parseDollarCents(variant.option2)
+        || parseDollarCents(variant.title)
+        || parseDollarCents(variant.name);
+    }
+
+    function getDisplayCents(variant, variants) {
+      if (!variant) return null;
+      if (!isRentVariant(variant)) return variant.price;
+
+      var parsed = parseVariantCents(variant);
+      if (parsed != null) return parsed;
+
+      var list = variants || [];
+      var hasPurchase = false;
+      for (var i = 0; i < list.length; i++) {
+        if (isRentVariant(list[i])) {
+          var sibling = parseVariantCents(list[i]);
+          if (sibling != null) return sibling;
+        } else {
+          hasPurchase = true;
+        }
+      }
+
+      if (list.length && !hasPurchase) return variant.price;
+
+      if (Number(variant.price) < 35000) return variant.price;
+
+      var fallback = fallbackRentCents(variant.price);
+      return fallback != null ? fallback : variant.price;
+    }
+
+    return {
+      isRentVariant: isRentVariant,
+      getDisplayCents: getDisplayCents
+    };
+  })();
   
   theme.Images = (function() {
   
@@ -7489,6 +7556,7 @@ lazySizesConfig.expFactor = 4;
         }
   
         this.container.on('variantChange' + this.settings.namespace, this.updateCartButton.bind(this));
+        this.container.on('variantChange' + this.settings.namespace, this.updatePrice.bind(this));
         this.container.on('variantImageChange' + this.settings.namespace, this.updateVariantImage.bind(this));
         this.container.on('variantPriceChange' + this.settings.namespace, this.updatePrice.bind(this));
         this.container.on('variantUnitPriceChange' + this.settings.namespace, this.updateUnitPrice.bind(this));
@@ -7593,8 +7661,11 @@ lazySizesConfig.expFactor = 4;
             this.cacheElements();
           }
   
-          // Regular price
-          this.cache.price.innerHTML = theme.Currency.formatMoney(variant.price, theme.settings.moneyFormat);
+          // Regular price (rent variants show SKU/$ title fee, not deposit)
+          var displayCents = theme.RentalPrice && theme.RentalPrice.getDisplayCents
+            ? theme.RentalPrice.getDisplayCents(variant, this.variantsObject)
+            : variant.price;
+          this.cache.price.innerHTML = theme.Currency.formatMoney(displayCents, theme.settings.moneyFormat);
   
           // Sale price, if necessary
           if (variant.compare_at_price > variant.price) {
