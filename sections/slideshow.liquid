@@ -149,8 +149,6 @@
                         data-src="{{ img_url }}"
                         data-aspectratio="{{ block.settings.image.aspect_ratio }}"
                         data-sizes="auto"
-                        width="{{ block.settings.image.width }}"
-                        height="{{ block.settings.image.height }}"
                         alt="{{ block.settings.image.alt | escape }}"
                         loading="lazy"
                         style="object-position: {{ block.settings.focal_point }}">
@@ -161,8 +159,6 @@
                           data-src="{{ img_url_mobile }}"
                           data-aspectratio="{{ block.settings.image_mobile.aspect_ratio }}"
                           data-sizes="auto"
-                          width="{{ block.settings.image_mobile.width }}"
-                          height="{{ block.settings.image_mobile.height }}"
                           alt="{{ block.settings.image_mobile.alt | escape }}"
                           loading="lazy"
                           style="object-position: {{ block.settings.focal_point }}">
@@ -170,8 +166,6 @@
                       <noscript>
                         <img class="hero__image hero__image--{{ block.id }}"
                           src="{{ block.settings.image | image_url: width: 1400, format: 'webp' }}"
-                          width="{{ block.settings.image.width }}"
-                          height="{{ block.settings.image.height }}"
                           alt="{{ block.settings.image.alt | escape }}">
                       </noscript>
                       {%- endif -%}

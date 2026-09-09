@@ -90,8 +90,6 @@
           data-widths="[900]"
           data-aspectratio="{{ media_aspect_ratio }}"
           data-sizes="auto"
-          width="{{ media_width }}"
-          height="{{ media_height }}"
           alt="{{ media.alt | escape | split: '#' | first }}">
       </div>
       <button class="hide btn btn--circle btn--static product-single__close-media">
@@ -118,8 +116,6 @@
             src="{{ media.preview_image | image_url: width: 720 }}"
             srcset="{{ media.preview_image | image_url: width: 360 }} 360w, {{ media.preview_image | image_url: width: 540 }} 540w, {{ media.preview_image | image_url: width: 720 }} 720w, {{ media.preview_image | image_url: width: 900 }} 900w, {{ media.preview_image | image_url: width: 1080 }} 1080w"
             sizes="(min-width: 769px) 50vw, 100vw"
-            width="{{ media_width }}"
-            height="{{ media_height }}"
             fetchpriority="high"
             loading="eager"
             style="opacity:1;animation:none"
@@ -138,14 +134,12 @@
           data-widths="[360, 540, 720, 900, 1080]"
           data-aspectratio="{{ media_aspect_ratio }}"
           data-sizes="auto"
-          width="{{ media_width }}"
-          height="{{ media_height }}"
           loading="lazy"
           alt="{{ media_alt }}">
         {%- endif -%}
 
         <noscript>
-          <img class="lazyloaded" src="{{ media.preview_image | img_url: '800x' }}" width="{{ media_width }}" height="{{ media_height }}" alt="{{ media.alt | escape | split: '#' | first }}">
+          <img class="lazyloaded" src="{{ media.preview_image | img_url: '800x' }}" alt="{{ media.alt | escape | split: '#' | first }}">
         </noscript>
 
         {%- if product_zoom_enable and media.media_type == 'image' -%}
