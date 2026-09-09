@@ -107,10 +107,14 @@
                 data-widths="[160, 200, 280, 360, 540, 720, 900]"
                 data-aspectratio="{{ preview_image.aspect_ratio }}"
                 data-sizes="auto"
+                width="{{ preview_image.width }}"
+                height="{{ preview_image.height }}"
                 alt="{{ preview_image.alt | escape }}">
             <noscript>
               <img class="grid-product__image lazyloaded"
                 src="{{ preview_image | img_url: '400x' }}"
+                width="{{ preview_image.width }}"
+                height="{{ preview_image.height }}"
                 alt="{{ preview_image.alt | escape }}">
             </noscript>
           </div>
@@ -127,10 +131,14 @@
                 data-widths="[360, 540, 720, 900, 1080]"
                 data-aspectratio="{{ preview_image.aspect_ratio }}"
                 data-sizes="auto"
+                width="{{ preview_image.width }}"
+                height="{{ preview_image.height }}"
                 alt="{{ preview_image.alt | escape }}">
             <noscript>
               <img class="grid-product__image lazyloaded"
                 src="{{ preview_image | img_url: '400x' }}"
+                width="{{ preview_image.width }}"
+                height="{{ preview_image.height }}"
                 alt="{{ preview_image.alt | escape }}">
             </noscript>
           </div>
@@ -147,6 +155,8 @@
                 data-widths="[360, 540, 720, 1000]"
                 data-aspectratio="{{ second_image.aspect_ratio }}"
                 data-sizes="auto"
+                width="{{ second_image.width }}"
+                height="{{ second_image.height }}"
                 alt="{{ second_image.alt }}">
           </div>
         {%- endif -%}

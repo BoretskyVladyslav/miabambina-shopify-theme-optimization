@@ -169,7 +169,8 @@
       var sizeInput = wrap ? wrap.querySelector('[data-variant-input]:checked') : null;
       var sizeVal = sizeInput ? String(sizeInput.value).toLowerCase() : '';
       var show = sizeVal.indexOf('custom size') !== -1;
-      note.classList.toggle(HIDE, !show);
+      note.hidden = !show;
+      note.classList.remove(HIDE);
     });
   }
 

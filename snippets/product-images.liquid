@@ -102,11 +102,15 @@
                           data-widths="[120, 360, 540, 720]"
                           data-aspectratio="{{ media.preview_image.aspect_ratio }}"
                           data-sizes="auto"
+                          width="{{ media.preview_image.width }}"
+                          height="{{ media.preview_image.height }}"
                           alt="{{ media.alt | escape | split: '#' | first }}">
 
                       <noscript>
                         <img class="lazyloaded"
                           src="{{ media | img_url: '400x' }}"
+                          width="{{ media.preview_image.width }}"
+                          height="{{ media.preview_image.height }}"
                           alt="{{ media.alt | escape }}">
                       </noscript>
                   </div>

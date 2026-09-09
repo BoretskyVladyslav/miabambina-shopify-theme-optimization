@@ -146,8 +146,16 @@
     endif
   -%}
   {%- if render_custom_size_info -%}
-    <p class="small{% unless show_custom_size_info %} hide{% endunless %}" data-custom-size-info>
+    <p class="small" data-custom-size-info{% unless show_custom_size_info %} hidden{% endunless %}>
       {{ 'products.product.custom_size_info' | t }}
     </p>
   {%- endif -%}
 </div>
+
+{% style %}
+  [data-custom-size-info][hidden] {
+    display: block !important;
+    visibility: hidden;
+    pointer-events: none;
+  }
+{% endstyle %}

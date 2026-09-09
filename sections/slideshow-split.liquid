@@ -144,6 +144,8 @@
                       data-src="{{ img_url }}"
                       data-aspectratio="{{ block.settings.image.aspect_ratio }}"
                       data-sizes="auto"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
                       alt="{{ block.settings.image.alt | escape }}"
                       loading="lazy"
                       {% unless block.settings.indent_image %}
@@ -153,6 +155,8 @@
                     <noscript>
                       <img class="hero__image hero__image--{{ block.id }}"
                         src="{{ block.settings.image | img_url: '1400x' }}"
+                        width="{{ block.settings.image.width }}"
+                        height="{{ block.settings.image.height }}"
                         alt="{{ block.settings.image.alt | escape }}">
                     </noscript>
 

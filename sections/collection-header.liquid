@@ -31,11 +31,15 @@
             data-aspectratio="{{ collection.image.aspect_ratio }}"
             data-widths="[420, 620, 720, 900, 1080, 1800, 2400]"
             data-sizes="auto"
+            width="{{ collection.image.width }}"
+            height="{{ collection.image.height }}"
             alt="{{ collection.image.alt | escape }}">
 
           <noscript>
             <img class="collection-hero__image image-fit"
               src="{{ collection.image | img_url: '1400x' }}"
+              width="{{ collection.image.width }}"
+              height="{{ collection.image.height }}"
               alt="{{ collection.image.alt | escape }}">
           </noscript>
 
