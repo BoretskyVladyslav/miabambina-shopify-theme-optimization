@@ -112,7 +112,7 @@
         -%}
 
         {%- if is_lcp -%}
-          <img class="{% if product_zoom_enable %}photoswipe__image{% endif %}"
+          <img class="{% if product_zoom_enable %}photoswipe__image{% endif %} lazyloaded"
             src="{{ media.preview_image | image_url: width: 720 }}"
             srcset="{{ media.preview_image | image_url: width: 360 }} 360w, {{ media.preview_image | image_url: width: 540 }} 540w, {{ media.preview_image | image_url: width: 720 }} 720w, {{ media.preview_image | image_url: width: 900 }} 900w, {{ media.preview_image | image_url: width: 1080 }} 1080w"
             sizes="(min-width: 769px) 50vw, 100vw"
@@ -120,6 +120,7 @@
             height="{{ media_height }}"
             fetchpriority="high"
             loading="eager"
+            style="opacity:1;animation:none"
             data-photoswipe-src="{{ media.preview_image | img_url: product_zoom_size }}"
             data-photoswipe-width="{{ media_width }}"
             data-photoswipe-height="{{ media_height }}"

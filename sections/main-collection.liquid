@@ -41,12 +41,6 @@
 
           {%- for block in section.blocks -%}
             {%- case block.type -%}
-            {%- when 'collection_description' -%}
-              {%- if collection.description != blank and current_filter_size == 0 -%}
-              <div class="rte rte--collection-desc" {{ block.shopify_attributes }}>
-                    {{ collection.description }}
-                </div>
-              {%- endif -%}
             {%- when 'subcollections' -%}
               {%- if paginate.current_page == 1 and current_filter_size == 0 -%}
                 <div {{ block.shopify_attributes }}>
@@ -54,23 +48,26 @@
                 </div>
               {%- endif -%}
             {%- when 'product_grid' -%}
-
-
               <div {{ block.shopify_attributes }}>
                 {%- assign paginated_items = collection.products -%}
                 {%- include 'collection-grid', collection: collection, items: paginated_items, grid_style: block.settings.grid_style, quick_shop_enable: settings.quick_shop_enable -%}
               </div>
-
-
+              {%- if paginate.pages > 1 -%}
+                {%- render 'pagination', paginate: paginate -%}
+              {%- endif -%}
             {%- endcase -%}
+          {%- endfor -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'collection_description' -%}
+              {%- if collection.description != blank and current_filter_size == 0 -%}
+                <div class="rte rte--collection-desc" {{ block.shopify_attributes }}>
+                  {{ collection.description }}
+                </div>
+              {%- endif -%}
+            {%- endif -%}
           {%- endfor -%}
         </div>
       </div>
-      {%- liquid
-        if paginate.pages > 1
-          render 'pagination', paginate: paginate
-        endif
-      -%}
       {%- endpaginate -%}
     </div>
   </div>
