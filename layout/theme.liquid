@@ -9,9 +9,6 @@
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="preconnect" href="https://cdn.shopify.com">
   <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-  <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
-  <link rel="dns-prefetch" href="https://maps.googleapis.com">
-  <link rel="dns-prefetch" href="https://maps.gstatic.com">
   {%- if request.page_type == 'index' -%}
     <link
       rel="preload"
@@ -26,8 +23,8 @@
     <link
       rel="preload"
       as="image"
-      href="{{ lcp_image | image_url: width: 720 }}"
-      imagesrcset="{{ lcp_image | image_url: width: 360 }} 360w, {{ lcp_image | image_url: width: 540 }} 540w, {{ lcp_image | image_url: width: 720 }} 720w, {{ lcp_image | image_url: width: 900 }} 900w, {{ lcp_image | image_url: width: 1080 }} 1080w"
+      href="{{ lcp_image | image_url: width: 720, format: 'webp' }}"
+      imagesrcset="{{ lcp_image | image_url: width: 360, format: 'webp' }} 360w, {{ lcp_image | image_url: width: 540, format: 'webp' }} 540w, {{ lcp_image | image_url: width: 720, format: 'webp' }} 720w, {{ lcp_image | image_url: width: 900, format: 'webp' }} 900w, {{ lcp_image | image_url: width: 1080, format: 'webp' }} 1080w"
       imagesizes="(min-width: 769px) 50vw, 100vw"
       fetchpriority="high">
   {%- endif -%}
@@ -220,14 +217,6 @@
       document.head.appendChild(gtagScript);
       window.gtag('js', new Date());
       window.gtag('config', GTAG_ID);
-
-      document.querySelectorAll('script[data-deferred-tracker]').forEach(function(el) {
-        if (!el.src) return;
-        var s = document.createElement('script');
-        s.src = el.src;
-        s.async = true;
-        document.body.appendChild(s);
-      });
     }
 
     function scheduleTrackers() {

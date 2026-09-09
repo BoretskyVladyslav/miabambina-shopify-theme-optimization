@@ -126,7 +126,7 @@
                 </div>
                 <div class="hero__sidebyside-image{% if block.settings.indent_image %} hero__sidebyside-image--indented{% endif %}">
                   {%- if block.settings.image != blank -%}
-                    {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                    {%- assign img_url = block.settings.image | image_url: width: 1, format: 'webp' | replace: 'width=1', 'width={width}' -%}
 
                     {%- if block.settings.link != blank -%}
                       <a href="{{ block.settings.link }}" class="hero__sidebyside-image-link" aria-hidden="true">
@@ -140,7 +140,7 @@
                     -%}
                     {%- else -%}
                     <img class="hero__image hero__image--{{ block.id }} lazyload"
-                      src="{{ block.settings.image | img_url: '300x' }}"
+                      src="{{ block.settings.image | image_url: width: 300, format: 'webp' }}"
                       data-src="{{ img_url }}"
                       data-aspectratio="{{ block.settings.image.aspect_ratio }}"
                       data-sizes="auto"
@@ -154,7 +154,7 @@
                     {%- endif -%}
                     <noscript>
                       <img class="hero__image hero__image--{{ block.id }}"
-                        src="{{ block.settings.image | img_url: '1400x' }}"
+                        src="{{ block.settings.image | image_url: width: 1400, format: 'webp' }}"
                         width="{{ block.settings.image.width }}"
                         height="{{ block.settings.image.height }}"
                         alt="{{ block.settings.image.alt | escape }}">

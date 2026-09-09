@@ -16,7 +16,7 @@
       data-section-type="collection-header"
       {% if section.settings.parallax %}data-parallax="true"{% endif %}>
 
-      {%- assign img_url = collection.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+      {%- assign img_url = collection.image | image_url: width: 1, format: 'webp' | replace: 'width=1', 'width={width}' -%}
 
       <div class="collection-hero loading">
 
@@ -37,7 +37,7 @@
 
           <noscript>
             <img class="collection-hero__image image-fit"
-              src="{{ collection.image | img_url: '1400x' }}"
+              src="{{ collection.image | image_url: width: 1400, format: 'webp' }}"
               width="{{ collection.image.width }}"
               height="{{ collection.image.height }}"
               alt="{{ collection.image.alt | escape }}">

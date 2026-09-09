@@ -16,19 +16,19 @@
 -%}
 
 {%- if has_mobile -%}
-  {{ image_mobile | image_url: width: 750 | preload_tag: as: 'image', media: '(max-width: 768px)', fetchpriority: 'high' }}
-  {{ image | image_url: width: 1100 | preload_tag: as: 'image', media: '(min-width: 769px)', fetchpriority: 'high' }}
+  {{ image_mobile | image_url: width: 750, format: 'webp' | preload_tag: as: 'image', media: '(max-width: 768px)', fetchpriority: 'high' }}
+  {{ image | image_url: width: 1100, format: 'webp' | preload_tag: as: 'image', media: '(min-width: 769px)', fetchpriority: 'high' }}
   <picture>
     <source
       media="(max-width: 768px)"
-      srcset="{{ image_mobile | image_url: width: 375 }} 375w, {{ image_mobile | image_url: width: 550 }} 550w, {{ image_mobile | image_url: width: 750 }} 750w, {{ image_mobile | image_url: width: 990 }} 990w"
+      srcset="{{ image_mobile | image_url: width: 375, format: 'webp' }} 375w, {{ image_mobile | image_url: width: 550, format: 'webp' }} 550w, {{ image_mobile | image_url: width: 750, format: 'webp' }} 750w, {{ image_mobile | image_url: width: 990, format: 'webp' }} 990w"
       sizes="100vw"
       width="{{ image_mobile.width }}"
       height="{{ image_mobile.height }}">
     <img
       class="hero__image hero__image--{{ block_id }}"
-      src="{{ image | image_url: width: 1100 }}"
-      srcset="{{ image | image_url: width: 375 }} 375w, {{ image | image_url: width: 750 }} 750w, {{ image | image_url: width: 1100 }} 1100w, {{ image | image_url: width: 1500 }} 1500w, {{ image | image_url: width: 1780 }} 1780w"
+      src="{{ image | image_url: width: 1100, format: 'webp' }}"
+      srcset="{{ image | image_url: width: 375, format: 'webp' }} 375w, {{ image | image_url: width: 750, format: 'webp' }} 750w, {{ image | image_url: width: 1100, format: 'webp' }} 1100w, {{ image | image_url: width: 1500, format: 'webp' }} 1500w, {{ image | image_url: width: 1780, format: 'webp' }} 1780w"
       sizes="100vw"
       width="{{ image.width }}"
       height="{{ image.height }}"
@@ -38,11 +38,11 @@
       style="object-position: {{ lcp_position }}">
   </picture>
 {%- else -%}
-  {{ image | image_url: width: 750 | preload_tag: as: 'image', fetchpriority: 'high' }}
+  {{ image | image_url: width: 750, format: 'webp' | preload_tag: as: 'image', fetchpriority: 'high' }}
   <img
     class="hero__image hero__image--{{ block_id }}"
-    src="{{ image | image_url: width: 1100 }}"
-    srcset="{{ image | image_url: width: 375 }} 375w, {{ image | image_url: width: 750 }} 750w, {{ image | image_url: width: 1100 }} 1100w, {{ image | image_url: width: 1500 }} 1500w, {{ image | image_url: width: 1780 }} 1780w"
+    src="{{ image | image_url: width: 1100, format: 'webp' }}"
+    srcset="{{ image | image_url: width: 375, format: 'webp' }} 375w, {{ image | image_url: width: 750, format: 'webp' }} 750w, {{ image | image_url: width: 1100, format: 'webp' }} 1100w, {{ image | image_url: width: 1500, format: 'webp' }} 1500w, {{ image | image_url: width: 1780, format: 'webp' }} 1780w"
     sizes="100vw"
     width="{{ image.width }}"
     height="{{ image.height }}"
