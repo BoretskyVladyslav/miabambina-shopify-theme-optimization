@@ -23,7 +23,7 @@
   <div class="cart__footer">
     <div class="cart__item-sub cart__item-row cart__item--subtotal">
       <div>{{ 'cart.general.subtotal' | t }}</div>
-      <div data-subtotal>{{ cart.total_price | money }}</div>
+      <div data-subtotal>{%- render 'price' with cart.total_price -%}</div>
     </div>
 
     <div data-discounts></div>

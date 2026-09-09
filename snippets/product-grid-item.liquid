@@ -307,7 +307,7 @@
                   {%- endif -%}
                 {%- endcapture -%}
 
-                {{ product_variant.unit_price | money }}/{{ unit_price_base_unit }}
+                {%- render 'price' with product_variant.unit_price -%}/{{ unit_price_base_unit }}
               </div>
             {%- endif -%}
           </div>

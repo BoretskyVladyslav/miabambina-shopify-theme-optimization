@@ -1,0 +1,26 @@
+{%- assign strip_input = strip_source | default: '' | strip_html | strip -%}
+{%- assign strip_kept = '' -%}
+{%- if strip_input != blank -%}
+  {%- assign strip_sentences = strip_input | split: '. ' -%}
+  {%- for sentence in strip_sentences -%}
+    {%- assign strip_check = sentence | downcase -%}
+    {%- assign strip_skip = false -%}
+    {%- if strip_check contains 'price $' -%}
+      {%- assign strip_skip = true -%}
+    {%- endif -%}
+    {%- if strip_check contains 'price: $' -%}
+      {%- assign strip_skip = true -%}
+    {%- endif -%}
+    {%- if strip_check contains 'price:$' -%}
+      {%- assign strip_skip = true -%}
+    {%- endif -%}
+    {%- unless strip_skip -%}
+      {%- if strip_kept == blank -%}
+        {%- assign strip_kept = sentence -%}
+      {%- else -%}
+        {%- assign strip_kept = strip_kept | append: '. ' | append: sentence -%}
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endif -%}
+{{- strip_kept | strip -}}

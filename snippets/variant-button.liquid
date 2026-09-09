@@ -133,14 +133,19 @@
       </div>
     {%- endfor -%}
   </fieldset>
-  {%- if format_picker_on -%}
-    {%- liquid
-      assign show_custom_size_info = false
-      assign selected_size_dv = option.selected_value | downcase
-      if current_format == 'custom' and selected_size_dv contains 'custom size'
-        assign show_custom_size_info = true
-      endif
-    -%}
+  {%- liquid
+    assign selected_size_dv = option.selected_value | downcase
+    assign option_name_dv = option.name | downcase
+    assign render_custom_size_info = false
+    if option_name_dv contains 'size' or selected_size_dv contains 'custom size' or format_picker_on
+      assign render_custom_size_info = true
+    endif
+    assign show_custom_size_info = false
+    if selected_size_dv contains 'custom size'
+      assign show_custom_size_info = true
+    endif
+  -%}
+  {%- if render_custom_size_info -%}
     <p class="small{% unless show_custom_size_info %} hide{% endunless %}" data-custom-size-info>
       {{ 'products.product.custom_size_info' | t }}
     </p>

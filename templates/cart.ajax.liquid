@@ -20,7 +20,7 @@
 <div class="cart__discounts text-right{% if cart.cart_level_discount_applications == blank %} hide{% endif %}">
   <div>
     {% for cart_discount in cart.cart_level_discount_applications %}
-      {%- assign savings = cart_discount.total_allocated_amount | money -%}
+      {%- assign savings = cart_discount.total_allocated_amount | money_with_currency -%}
       <div class="cart__discount">
         {{ 'cart.general.savings_html' | t: saved_amount: savings }}
         ({{ cart_discount.title }})

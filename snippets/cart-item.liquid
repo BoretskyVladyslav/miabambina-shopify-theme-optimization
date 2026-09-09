@@ -169,12 +169,12 @@
               {%- endif -%}
             </span>
           {%- endcapture -%}
-          <span class="product__unit-price">{{ product.unit_price | money }}/{{ unit_price_base_unit }}</span>
+          <span class="product__unit-price">{%- render 'price' with product.unit_price -%}/{{ unit_price_base_unit }}</span>
         {%- endif -%}
 
         {%- if product.line_level_discount_allocations != blank -%}
           {%- for discount_allocation in product.line_level_discount_allocations -%}
-            <small class="cart__discount">{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})</small>
+            <small class="cart__discount">{{ discount_allocation.discount_application.title }} (-{%- render 'price' with discount_allocation.amount -%})</small>
           {%- endfor -%}
         {%- endif -%}
       </div>

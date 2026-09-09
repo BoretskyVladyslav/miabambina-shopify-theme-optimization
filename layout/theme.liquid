@@ -128,51 +128,7 @@
   {%- if request.page_type contains 'customers/' -%}
     <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
   {%- endif -%}
-  {%- if request.page_type == 'product' -%}
-{%- liquid
-  assign schema_description = product.description | strip_html | strip
-  if schema_description == blank
-    assign schema_description = product.title
-  endif
-  if product.featured_image
-    assign schema_image = product.featured_image | img_url: 'master' | prepend: 'https:'
-  elsif product.images.first
-    assign schema_image = product.images.first | img_url: 'master' | prepend: 'https:'
-  else
-    assign schema_image = ''
-  endif
--%}
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": {{ product.title | json }},
-    "image": {{ schema_image | json }},
-    "description": {{ schema_description | json }},
-    "brand": {
-      "@type": "Brand",
-      "name": {{ product.vendor | json }}
-    },
-    "sku": {{ product.selected_or_first_available_variant.sku | json }},
-    "url": {{ shop.secure_url | append: product.url | json }},
-    "itemCondition": "https://schema.org/NewCondition",
-    "offers": [
-      {%- for variant in product.variants -%}
-        {
-          "@type": "Offer",
-          "price": {{ variant.price | money_without_currency | remove: "," | json }},
-          "priceCurrency": {{ cart.currency.iso_code | json }},
-          "itemCondition": "https://schema.org/NewCondition",
-          "url": {{ shop.secure_url | append: variant.url | json }},
-          "sku": {{ variant.sku | json }},
-          "availability": {% if variant.available %}"https://schema.org/InStock"{% else %}"https://schema.org/OutOfStock"{% endif %},
-          "priceValidUntil": {{ "now" | date: '%s' | plus: 2592000 | date: "%Y-%m-%d" | json }}
-        }{% unless forloop.last %},{% endunless %}
-      {%- endfor -%}
-    ]
-  }
-</script>
-{%- elsif template == 'blog' -%}
+  {%- if template == 'blog' -%}
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -198,7 +154,9 @@
     "name": {{ article.title | json }},
     "publisher": {
       "@type": "Organization",
-      "logo": {"@type": "ImageObject","url": "https:{{ 'logo.png' | asset_url }}"},
+      {%- if settings.favicon != blank -%}
+        "logo": {"@type": "ImageObject","url": {{ settings.favicon | image_url: width: 512 | json }}},
+      {%- endif -%}
       "name": {{ shop.name | json }}
     },
     "headline": {{ article.title | json }},
@@ -214,29 +172,34 @@
   }
 </script>
  {%- else -%}
+{%- liquid
+  assign org_logo = ''
+  if shop.brand.logo != blank
+    assign org_logo = shop.brand.logo | image_url: width: 512
+  elsif settings.favicon != blank
+    assign org_logo = settings.favicon | image_url: width: 512
+  endif
+-%}
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": {{ shop.name | json }},
     "url": "https://{{ shop.domain }}",
-    "description": {{ shop.description | json }},
-    {%- unless logo_url == blank -%}
-      "image": "{{ logo_url | remove: "\" }}",
-      "logo": "{{ logo_url | remove: "\" }}",
-    {%- else -%}
-      "image": "https:{{ 'logo.png' | asset_url }}",
-      "logo": "https:{{ 'logo.png' | asset_url }}",
-    {%- endunless -%}
-    "sameAs": ["{{ booster_config.same_as | join: '", "'}}"],
-    "telephone": "{{ shop.phone }}",
+    "description": {{ shop.description | json }}
+    {%- if org_logo != blank -%}
+      ,"image": {{ org_logo | json }},
+      "logo": {{ org_logo | json }}
+    {%- endif -%}
+    ,"sameAs": {% if booster_config.same_as != blank %}{{ booster_config.same_as | json }}{% else %}[]{% endif %},
+    "telephone": {{ shop.phone | json }},
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "{{ shop.address.street }}",
-      "addressLocality": "{{ shop.address.city }}",
-      "addressRegion": "{{ shop.address.province }}",
-      "postalCode": "{{ shop.address.zip }}",
-      "addressCountry": "{{ shop.address.country }}"
+      "streetAddress": {{ shop.address.street | json }},
+      "addressLocality": {{ shop.address.city | json }},
+      "addressRegion": {{ shop.address.province | json }},
+      "postalCode": {{ shop.address.zip | json }},
+      "addressCountry": {{ shop.address.country | json }}
     }
   }
 </script>

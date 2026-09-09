@@ -9,11 +9,15 @@
 {%- assign description_plain = description | strip_html | strip -%}
 {%- if description_plain != blank -%}
   {%- if is_tab -%}
+    {%- capture description_html -%}
+      <div data-sanitize-static-prices>{{ description }}</div>
+    {%- endcapture -%}
     {% assign title = 'products.product.description' | t %}
-    {%- render 'tab', id: id, title: title, content: description -%}
+    {%- render 'tab', id: id, title: title, content: description_html -%}
   {%- else -%}
-    <div class="rte">
+    <div class="rte" data-sanitize-static-prices>
       {{ description }}
     </div>
   {%- endif -%}
+  <script src="{{ 'sanitize-static-prices.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}

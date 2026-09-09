@@ -12,10 +12,25 @@
     endif
   endif
 -%}
+{%- capture schema_description -%}
+  {%- render 'strip-static-price-copy', strip_source: product.description -%}
+{%- endcapture -%}
+{%- assign schema_description = schema_description | strip -%}
+{%- if schema_description == blank -%}
+  {%- assign schema_description = product.title -%}
+{%- endif -%}
+{%- liquid
+  assign schema_image = ''
+  if product.featured_media
+    assign schema_image = product.featured_media.preview_image | image_url: width: 1024
+  elsif product.featured_image
+    assign schema_image = product.featured_image | image_url: width: 1024
+  endif
+-%}
 
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Product",
     "offers": [
       {%- for variant in product.variants -%}
@@ -24,7 +39,7 @@
           {%- if variant.sku != blank -%}
             "sku": {{ variant.sku | json }},
           {%- endif -%}
-          "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "availability" : "https://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
           "price" : {{ variant.price | divided_by: 100.00 | json }},
           "priceCurrency" : {{ cart.currency.iso_code | json }},
           "priceValidUntil": "{{ 'now' | date: '%s' | plus: days_price_valid_until | date: '%Y-%m-%d' }}",
@@ -38,23 +53,25 @@
     },
     "sku": {{ current_variant.sku | json }},
     "name": {{ product.title | json }},
-    "description": {{ product.description | strip_html | default: product.title | json }},
-    "category": "",
-    "url": "{{ shop.url }}{{ product.url }}",
-    {%- if is_barcode_available and is_valid_gtin_length %}
-      "{{gtin_option}}": {{ current_variant.barcode | json }},
-      "productId": {{ current_variant.barcode | json }},
-    {%- elsif is_barcode_available %}
-      "mpn": {{ current_variant.barcode | json }},
-      "productId": {{ current_variant.barcode | json }},
+    "description": {{ schema_description | json }},
+    "url": {{ shop.url | append: product.url | json }}
+    {%- if is_barcode_available and is_valid_gtin_length -%}
+      ,"{{ gtin_option }}": {{ current_variant.barcode | json }},
+      "productId": {{ current_variant.barcode | json }}
+    {%- elsif is_barcode_available -%}
+      ,"mpn": {{ current_variant.barcode | json }},
+      "productId": {{ current_variant.barcode | json }}
     {%- endif -%}
-    "image": {
-      "@type": "ImageObject",
-      "url": "https:{{ product.featured_media.preview_image | img_url: '1024x1024' }}",
-      "image": "https:{{ product.featured_media.preview_image | img_url: '1024x1024' }}",
-      "name": {{ product.title | json }},
-      "width": 1024,
-      "height": 1024
-    }
+    {%- if schema_image != blank -%}
+      ,"image": {
+        "@type": "ImageObject",
+        "url": {{ schema_image | json }},
+        "image": {{ schema_image | json }},
+        "name": {{ product.title | json }},
+        "width": 1024,
+        "height": 1024
+      }
+    {%- endif -%}
   }
 </script>
+<script src="{{ 'sanitize-static-prices.js' | asset_url }}" defer="defer"></script>

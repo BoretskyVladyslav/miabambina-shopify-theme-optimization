@@ -163,18 +163,14 @@
   }
 
   function toggleCustomSizeInfo(section) {
-    var formatWrap = section.querySelector('[data-format-option]');
-    var note = formatWrap
-      ? formatWrap.parentNode.querySelector('[data-custom-size-info]')
-      : section.querySelector('[data-custom-size-info]');
-    if (!note) return;
-    var format = resolveFormat(section, getCurrentVariant(section));
-    var sizeInput = formatWrap
-      ? formatWrap.querySelector('[data-variant-input]:checked')
-      : section.querySelector('[data-variant-input]:checked');
-    var sizeVal = sizeInput ? String(sizeInput.value).toLowerCase() : '';
-    var show = format === 'custom' && sizeVal.indexOf('custom size') !== -1;
-    note.classList.toggle(HIDE, !show);
+    if (!section) return;
+    section.querySelectorAll('[data-custom-size-info]').forEach(function (note) {
+      var wrap = note.previousElementSibling;
+      var sizeInput = wrap ? wrap.querySelector('[data-variant-input]:checked') : null;
+      var sizeVal = sizeInput ? String(sizeInput.value).toLowerCase() : '';
+      var show = sizeVal.indexOf('custom size') !== -1;
+      note.classList.toggle(HIDE, !show);
+    });
   }
 
   function updatePrice(section, variant, format) {
@@ -265,9 +261,18 @@
     });
   }
 
+  function bindCustomSizeNotes() {
+    document.querySelectorAll('[data-section-type="product"]').forEach(function (section) {
+      if (!section.querySelector('[data-custom-size-info]')) return;
+      bindSection(section);
+      toggleCustomSizeInfo(section);
+    });
+  }
+
   function init() {
     document.querySelectorAll('[data-format-picker]').forEach(bindPicker);
     bindRentalForms();
+    bindCustomSizeNotes();
   }
 
   if (document.readyState === 'loading') {
